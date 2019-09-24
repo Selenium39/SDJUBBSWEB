@@ -1,0 +1,14 @@
+.navpath{
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.navpath>li {
+    display: inline-block;
+}
+
+.active>a{
+    color: #21c5d9;
+}

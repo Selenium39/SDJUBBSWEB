@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上海电机学院BBS-电机人自己的BBS</title>
+    <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/user/css/reset.css">
+    <link rel="stylesheet" href="/user/css/index.css">
+    <link rel="stylesheet" href="/user/css/block.css">
+    <link rel="stylesheet" href="/user/css/blocks.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="category">
+            <a href="#" class="category-link">分类</a>
+            <i class="icon-arrow"></i>
+            <div class="category-result"></div>
+            <!-- 边框 -->
+            <span class="btn-border"></span>
+            <span class="result-border"></span>
+            <span class="neck-border"></span>
+        </div>
+        <div class="search">
+            <input type="text" class="search-text" placeholder="Seach here...">
+            <button class="search-btn"><i class="icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <div id="l-no-login">
+                    <li>
+                        <span class="line"></span>
+                        <a href="/user/register">注册</a>
+                    </li>
+                    <li>
+                        <span class="line"></span>
+                        <a href="/user/login">登录</a>
+                    </li>
+                </div>
+                <div id="l-login" style="display: none;">
+                    <li>
+                        <span class="line"></span>
+                        <a id="l-welcome" href="#" style="font-size:18px;color:red;"></a>
+                    </li>
+                    <li>
+                        <span class="line"></span>
+                        <a href="#" id="l-logout">注销</a>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-shadow"></div>
+</header>
+
+<div class="main">
+    <div class="main-inner body-width">
+        <div class="main-cont main-block">
+            <ol class="navpath">
+                <li><a href="/user/index">首页</a></li>
+                <li> >></li>
+                <li><a href="/user/block">版块</a></li>
+                <li> >></li>
+                <li class="active"><a id="nav-block-name" href="#"></a></li>
+            </ol>
+        </div>
+        <div class="main-cont main-block">
+            <div id="page-thread" class="page-thread">
+            <div id="board-head">
+                <div id="title-wrapper">
+                    <div id="title" class="gray limit">
+                        <span id="block-name" class="title-text eng"></span>
+                    </div>
+                    <div id="stat" class="gray l">
+                        帖数：<span id="block-article-num" class="num"></span>
+                    </div>
+                </div>
+                <div id="add-fav" class="gray">
+                    <a id="bid" class="star"></a>
+                    <span id="fav-text" class="fav-text">收藏本版</span> (<span id="block-save-num" class="num"></span>)
+                </div>
+
+                <div id="tab">
+                    <div class="tab-button active"><a href="#" class="gray link">帖子</a></div>
+                </div>
+
+                <div class="search-box bdwm-search-box"><input class="search-ipt" type="text" placeholder="版面内搜索"
+                                                               autocomplete="off">
+                    <img class="search-btn-page" src="/user/images/search.png">
+                    <ul class="search-result box-shadow keywords-result">
+                    </ul>
+                    <ul class="search-result box-shadow history-result">
+                    </ul>
+                </div>
+            </div>
+            <div id="board-body">
+                <div id="list-head" class="fw">
+                    <div id="list-filter" class="l" data-type="1">
+                        <div class="l filter-item filter-item-active"><a class="link" href="?bid=971"></a>全部</div>
+                    </div>
+                </div>
+                <div id="list-body" class="fw">
+                    <div id="list-title" class="fw list-title">
+                        <div class="l id">序号</div>
+                        <div class="l title">标题</div>
+                        <div class="l author">作者</div>
+                        <div class="l reply">回复</div>
+                        <div class="l time">最后发表</div>
+                    </div>
+                    <div id="list-content" class="fw">
+                        <!-- list-item-top -->
+                        <div class="list-item"><a class="link" href="#"></a>
+                            <div class="id l"><div class="pin">置顶</div></div>
+                            <div class="dot l"></div>
+                            <div class="title-cont l">
+                                <div class="title l limit" style="max-width: 393px;">北京大学前沿交叉学科研究院简介</div>
+                            </div>
+                            <div class="avatar l"><a class="link"></a>
+                                <img src="images/cat.jpg">
+                            </div>
+                            <div class="author l"><a class="link"></a>
+                                <div class="name limit">AAIS</div>
+                                <div class="time">2009-01-09</div>
+                            </div>
+                        </div>
+                        <!-- list item -->
+                        <div class="list-item"><a class="link" href="#"></a>
+                            <div class="id l">1577</div>
+                            <div class="dot l" data-role="unread-dot"></div>
+                            <div class="title-cont l">
+                                <div class="title l limit" style="max-width: 499px;">王路达教授纳流体与分离膜课题组招募本科生</div>
+                            </div>
+                            <div class="avatar l"><a class="link" href="user.php?uid=184002"></a>
+                                <img src="images/user/portrait-mas.png">
+                            </div>
+                            <div class="author l"><a class="link" href="user.php?uid=184002"></a>
+                                <div class="name limit">paulzeng</div>
+                                <div class="time">09-07 11:51</div>
+                            </div>
+                            <div class="reply-num l">0</div>
+                            <div class="author l"><a class="link" href="post-read.php?bid=971&amp;threadid=17295533&amp;page=a&amp;postid=20839061#20839061"></a>
+                                <div class="name limit">paulzeng</div>
+                                <div class="time">09-07 11:51</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="paging">
+                    <div class="paging-button n active"><a class="link" href="?bid=971&amp;mode=topic"></a>1</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>2</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>3</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>4</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>5</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>6</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>7</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>8</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>9</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>...35</div>
+                    <div class="paging-button n"><a class="link" href="#"></a>下一页 &gt;</div>
+                    <div class="paging-input-wrapper"><input type="number" data-role="goto-input" max="35" min="1" value="1"></div>
+                    <div>/ 35</div>
+                    <div class="paging-button"><a data-action="goto-link" class="link" data-bid="971"></a>跳转</div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="readMore">回到顶部</a>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-link">
+            <div class="footer-link__item">
+                <h4 class="footer-title">关于我们</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">加入我们</a></li>
+                    <li class="item"><a href="#">联系我们</a></li>
+                    <li class="item"><a href="#">标签集</a></li>
+                    <li class="item"><a href="#">商务合作</a></li>
+                    <li class="item"><a href="#">免责声明</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">手机应用</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">加入我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <div class="footer-orcode"><img src="/user/images/app_qrcode.png" alt="#"></div>
+                <div class="orcode-text">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">关注我们</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">友情链接</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright">
+            <p>©2017 ****** 版权所有。</p>
+        </div>
+    </div>
+</footer>
+
+
+<script src="/common/js/jquery-3.1.1.js"></script>
+<script src="/common/js/jquery.cookie.js"></script>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/common/js/util.js"></script>
+<script src="/user/js/block.js"></script>
+</body>
+</html>

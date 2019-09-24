@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+spring:
+  #freemarker-------------------------------------------------------------
+  freemarker:
+    cache: true
+    charset: utf-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    request-context-attribute: request
+    suffix: .html
