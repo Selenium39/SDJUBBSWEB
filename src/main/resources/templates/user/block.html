@@ -42,7 +42,7 @@
                 <div id="l-login" style="display: none;">
                     <li>
                         <span class="line"></span>
-                        <a id="l-welcome" href="#" style="font-size:18px;color:red;"></a>
+                        <a id="l-welcome" href="#" style="font-size:18px;"></a>
                     </li>
                     <li>
                         <span class="line"></span>
@@ -68,102 +68,72 @@
         </div>
         <div class="main-cont main-block">
             <div id="page-thread" class="page-thread">
-            <div id="board-head">
-                <div id="title-wrapper">
-                    <div id="title" class="gray limit">
-                        <span id="block-name" class="title-text eng"></span>
-                    </div>
-                    <div id="stat" class="gray l">
-                        帖数：<span id="block-article-num" class="num"></span>
-                    </div>
-                </div>
-                <div id="add-fav" class="gray">
-                    <a id="bid" class="star"></a>
-                    <span id="fav-text" class="fav-text">收藏本版</span> (<span id="block-save-num" class="num"></span>)
-                </div>
-
-                <div id="tab">
-                    <div class="tab-button active"><a href="#" class="gray link">帖子</a></div>
-                </div>
-
-                <div class="search-box bdwm-search-box"><input class="search-ipt" type="text" placeholder="版面内搜索"
-                                                               autocomplete="off">
-                    <img class="search-btn-page" src="/user/images/search.png">
-                    <ul class="search-result box-shadow keywords-result">
-                    </ul>
-                    <ul class="search-result box-shadow history-result">
-                    </ul>
-                </div>
-            </div>
-            <div id="board-body">
-                <div id="list-head" class="fw">
-                    <div id="list-filter" class="l" data-type="1">
-                        <div class="l filter-item filter-item-active"><a class="link" href="?bid=971"></a>全部</div>
-                    </div>
-                </div>
-                <div id="list-body" class="fw">
-                    <div id="list-title" class="fw list-title">
-                        <div class="l id">序号</div>
-                        <div class="l title">标题</div>
-                        <div class="l author">作者</div>
-                        <div class="l reply">回复</div>
-                        <div class="l time">最后发表</div>
-                    </div>
-                    <div id="list-content" class="fw">
-                        <!-- list-item-top -->
-                        <div class="list-item"><a class="link" href="#"></a>
-                            <div class="id l"><div class="pin">置顶</div></div>
-                            <div class="dot l"></div>
-                            <div class="title-cont l">
-                                <div class="title l limit" style="max-width: 393px;">北京大学前沿交叉学科研究院简介</div>
-                            </div>
-                            <div class="avatar l"><a class="link"></a>
-                                <img src="images/cat.jpg">
-                            </div>
-                            <div class="author l"><a class="link"></a>
-                                <div class="name limit">AAIS</div>
-                                <div class="time">2009-01-09</div>
-                            </div>
+                <div id="board-head">
+                    <div id="title-wrapper">
+                        <div id="title" class="gray limit">
+                            <span id="block-name" class="title-text eng"></span>
                         </div>
-                        <!-- list item -->
-                        <div class="list-item"><a class="link" href="#"></a>
-                            <div class="id l">1577</div>
-                            <div class="dot l" data-role="unread-dot"></div>
-                            <div class="title-cont l">
-                                <div class="title l limit" style="max-width: 499px;">王路达教授纳流体与分离膜课题组招募本科生</div>
-                            </div>
-                            <div class="avatar l"><a class="link" href="user.php?uid=184002"></a>
-                                <img src="images/user/portrait-mas.png">
-                            </div>
-                            <div class="author l"><a class="link" href="user.php?uid=184002"></a>
-                                <div class="name limit">paulzeng</div>
-                                <div class="time">09-07 11:51</div>
-                            </div>
-                            <div class="reply-num l">0</div>
-                            <div class="author l"><a class="link" href="post-read.php?bid=971&amp;threadid=17295533&amp;page=a&amp;postid=20839061#20839061"></a>
-                                <div class="name limit">paulzeng</div>
-                                <div class="time">09-07 11:51</div>
-                            </div>
+                        <div id="stat" class="gray l">
+                            帖数：<span id="block-article-num" class="num"></span>
                         </div>
                     </div>
+                    <div id="add-fav" class="gray">
+                        <a id="bid" class="star"></a>
+                        <span id="fav-text" class="fav-text">收藏本版</span> (<span id="block-save-num" class="num"></span>)
+                    </div>
+
+                    <div id="tab">
+                        <div class="tab-button active"><a href="#" class="gray link">帖子</a></div>
+                    </div>
+
+                    <div class="search-box bdwm-search-box"><input class="search-ipt" type="text" placeholder="版面内搜索"
+                                                                   autocomplete="off">
+                        <img class="search-btn-page" src="/user/images/search.png">
+                        <ul class="search-result box-shadow keywords-result">
+                        </ul>
+                        <ul class="search-result box-shadow history-result">
+                        </ul>
+                    </div>
                 </div>
-                <div class="paging">
-                    <div class="paging-button n active"><a class="link" href="?bid=971&amp;mode=topic"></a>1</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>2</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>3</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>4</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>5</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>6</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>7</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>8</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>9</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>...35</div>
-                    <div class="paging-button n"><a class="link" href="#"></a>下一页 &gt;</div>
-                    <div class="paging-input-wrapper"><input type="number" data-role="goto-input" max="35" min="1" value="1"></div>
-                    <div>/ 35</div>
-                    <div class="paging-button"><a data-action="goto-link" class="link" data-bid="971"></a>跳转</div>
+                <div id="board-body">
+                    <div id="list-head" class="fw">
+                        <div id="list-filter" class="l" data-type="1">
+                            <div class="l filter-item filter-item-active"><a class="link" href="?bid=971"></a>全部</div>
+                        </div>
+                    </div>
+                    <div id="list-body" class="fw">
+                        <div id="list-title" class="fw list-title">
+                            <div class="l id">序号</div>
+                            <div class="l title">标题</div>
+                            <div class="l author">作者</div>
+                            <div class="l time" style="margin-left:20px;">发帖时间</div>
+                        </div>
+                        <div id="list-content" class="fw">
+
+                        </div>
+                    </div>
+                    <div class="paging">
+                        <div class="paging-button n"><a id="a-nav-index" class="link" href="#"></a>首页</div>
+                        <div id="p-nav-0" class="paging-button n"><a id="a-nav-0" class="link" href="#"></a>
+                        </div>
+                        <div id="p-nav-1" class="paging-button n"><a id="a-nav-1" class="link" href="#"></a></div>
+                        <div id="p-nav-2" class="paging-button n"><a id="a-nav-2" class="link" href="#"></a></div>
+                        <div id="p-nav-3" class="paging-button n"><a id="a-nav-3" class="link" href="#"></a></div>
+                        <div id="p-nav-4" class="paging-button n"><a id="a-nav-4" class="link" href="#"></a></div>
+                        <div id="p-nav-5" class="paging-button n"><a id="a-nav-5" class="link" href="#"></a></div>
+                        <div id="p-nav-6" class="paging-button n"><a id="a-nav-6" class="link" href="#"></a></div>
+                        <div id="p-nav-7" class="paging-button n"><a id="a-nav-7" class="link" href="#"></a></div>
+                        <div id="p-nav-8" class="paging-button n"><a id="a-nav-8" class="link" href="#"></a></div>
+                        <div id="p-nav-9" class="paging-button n"><a id="a-nav-9" class="link" href="#"></a></div>
+                        <div class="paging-button n"><a id="a-nav-next" class="link" href="#"></a>下一页 &gt;</div>
+                        <div class="paging-button n"><a id="a-nav-end" class="link" href="#"></a>末页</div>
+                        <div id="p-nav-10" class="paging-button n"><a id="a-nav-10" class="link" href="#"></a>
+                        </div>
+                        <div class="paging-input-wrapper"><input id="p-input" type="number" value="1"></div>
+                        <div id="p-total">/ 35</div>
+                        <div id="jumpButton" class="paging-button"><a class="link"></a>跳转</div>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>

@@ -6,5 +6,7 @@ public class UserApi {
     public static final String USER_TEMPLATE="/template";
     public static final String USER_LOGIN="/login";
     public static final String USER_REGISTER="/register";
-    public static final String USER_BLOCK="/block";
+    public static final String USER_BLOCKS="/block";
+    public static final String USER_BLOCK="/block/{id}";
+    public static final String USER_ARTICLE="/article/{id}";
 }

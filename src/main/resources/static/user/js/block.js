@@ -1,5 +1,6 @@
 var URL = 'http://localhost:8080';
-var blockId = window.location.href.toString().split("#")[0].split("/block/")[1];
+var blockId = window.location.href.toString().split("#")[0].split("/block/")[1].split("?")[0];
+var pageId = getQueryVariable("pn")
 $(function () {
     initBlock();
     eventHandler();
@@ -13,29 +14,92 @@ function initBlock() {
         $("#l-no-login").show();
         $("#l-login").hide();
     } else {//用户登录
-        $("#l-welcome").append(username);
+        $("#l-welcome").empty().append(username);
         $("#l-login").show();
         $("#l-no-login").hide();
     }
-    if (isInteger(blockId)) {
+    if (isInteger(blockId)&&isInteger(pageId)) {
         $.ajax({
-            url: URL + '/api/block/' + blockId,
+            url: URL + '/api/block/' + blockId + "?pn=" + pageId,
             type: 'GET',
             xhrFields: {
                 withCredentials: true
             },
             success: function (result) {
                 var block = result.data.block;
-                var articles = result.data.articles;
+                var articles = result.data.pageInfo.list;
                 $("#nav-block-name").empty().append(block.title);
                 $("#block-name").empty().append(block.title);
                 $("#block-save-num").empty().append(block.saveNum);
                 $("#block-article-num").empty().append(block.articleNum);
+                $.each(articles, function (index, article) {
+                    createArticleView(index, article);
+                });
+                if(pageId<=0||pageId>result.data.pageInfo.pages){
+                    //todo 页面不存在
+                    alert("页面不存在");
+                    window.location.href="/user/block/"+blockId+"?pn=1";
+                }
+                createNavigatePage(result.data.pageInfo);
+                $("#jumpButton").click(function(){
+                    jumpPn=$("#p-input").val();
+                    if(jumpPn<=0||jumpPn>result.data.pageInfo.pages){
+                        alert("页面不存在");
+                        window.location.href="/user/block/"+blockId+"?pn=1";
+                    }else{
+                        window.location.href="/user/block/"+blockId+"?pn="+jumpPn;
+                    }
+                });
             }
         });
     } else {
         //todo 跳转到页面不存在
+        alert("页面不存在");
     }
+}
+
+function createArticleView(index, article) {
+    A_div = $("<div></div>").addClass("list-item");
+    A_a = $("<a></a>").addClass("link").attr("href", "/user/article/"+article.id);
+    A_div1 = $("<div></div>").addClass("id l");
+    if (article.priority == 1) {
+        A_div2 = $("<div></div>").addClass("pin").empty().append("置顶").appendTo(A_div1);
+    } else {
+        A_div1.empty().append(article.id);
+    }
+    A_div3 = $("<div></div>").addClass("dot l");
+    A_div4 = $("<div></div>").addClass("title-cont l");
+    A_div5 = $("<div></div>").addClass("title l limit").attr("style", "max-width: 393px;").empty().append(article.title);
+    A_div6 = $("<div></div>");
+    A_a1 = $("<a></a>").addClass("link");
+    A_div7 = $("<div></div>").addClass("author l");
+    A_a2 = $("<a></a>").addClass("link").append(article.authorName);
+    A_div8 = $("<div></div>").addClass("name limit");
+    $("#list-content").append(A_div);
+    A_div5.appendTo(A_div4);
+    A_div6.append(A_a1).append(article.createTime);
+    A_div7.append(A_a2).append(A_div8);
+    A_div.append(A_a).append(A_div1).append(A_div3).append(A_div4).append(A_div6).append(A_div7);
+}
+
+function createNavigatePage(pageInfo){
+       if(!isInteger(pageId)){
+           alert("页面不存在");
+           window.location.href="/user/block/"+blockId+"?pn=1";
+       }
+       $("#p-total").empty().append("/ "+pageInfo.pages);
+       $("#p-input").attr({"min":1,"max":pageInfo.pages});
+       $("#a-nav-index").attr("href","/user/block/"+blockId+"?pn=1");
+       $("#a-nav-end").attr("href","/user/block/"+blockId+"?pn="+pageInfo.pages);
+       var pns=pageInfo.navigatepageNums;
+       for(let i=0;i<10;i++){
+           $("#a-nav-"+i).empty().attr("href","/user/block/"+blockId+"?pn="+pns[i]);
+           $("#p-nav-"+i).append(pns[i]);
+           if(pageId==pns[i]){
+               $("#p-nav-"+i).addClass("active")
+           }
+       }
+       $("#a-nav-next").empty().attr("href","/user/block/"+blockId+"?pn="+pageInfo.nextPage);
 }
 
 

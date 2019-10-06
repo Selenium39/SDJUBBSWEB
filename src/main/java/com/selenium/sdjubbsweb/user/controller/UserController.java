@@ -69,19 +69,28 @@ public class UserController {
      * url: /block
      * description: 板块目录
      */
-    @GetMapping(UserApi.USER_BLOCK)
-    public String blocks() {
+    @GetMapping(UserApi.USER_BLOCKS)
+    public String showBlocks() {
         return UserPage.USER_PAGE_BLOCKS;
     }
 
     /**
      * method: get
      * url: /block
-     * description: 板块目录
+     * description: 板块
      */
-    @GetMapping(UserApi.USER_BLOCK + "/{id}")
-    public String block(@PathVariable("id") Integer id) {
+    @GetMapping(UserApi.USER_BLOCK)
+    public String showBlock(@PathVariable("id") Integer id) {
         return UserPage.USER_PAGE_BLOCK;
     }
 
+    /**
+     * method: get
+     * url: /article
+     * description: 文章
+     */
+    @GetMapping(UserApi.USER_ARTICLE)
+    public String showArticle(@PathVariable("id") Integer id) {
+        return UserPage.USER_PAGE_ARTICLE;
+    }
 }

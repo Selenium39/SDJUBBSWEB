@@ -40,7 +40,7 @@ function initBlock() {
 
 function createBlockView(index,block){
     B_li=$("<li></li>").addClass('item').attr('id','b-'+index);
-    B_a=$('<a></a>').addClass('pic').attr('href','/user/block/'+block.id);
+    B_a=$('<a></a>').addClass('pic').attr('href','/user/block/'+block.id+"?pn=1");
     B_img=$('<img />').attr({'src':block.blockPicture,'id':'b-'+index+'-pic'});
     B_div=$("<div></div>").addClass('info');
     B_a_1=$('<a></a>').addClass('title').attr({'href':'#','id':'b-'+index+'-title'}).append(block.title);

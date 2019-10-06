@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>show</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="/common/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/user/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/user/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/user/css/article.css">
+    <link rel="stylesheet" href="/user/css/index.css">
+    <script src="/common/js/jquery-3.1.1.js"></script>
+    <script src="/user/js/index.js"></script>
+    <script src="/common/js/jquery.cookie.js"></script>
+</head>
+<body class="user-select single">
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="category">
+            <a href="#" class="category-link">分类</a>
+            <i class="icon-arrow"></i>
+            <div class="category-result"></div>
+            <!-- 边框 -->
+            <span class="btn-border"></span>
+            <span class="result-border"></span>
+            <span class="neck-border"></span>
+        </div>
+        <div class="search">
+            <input type="text" class="search-text" placeholder="Seach here...">
+            <button class="search-btn" style="margin-left:330px;margin-top: -30px;"><i class="icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <div id="l-no-login">
+                    <li>
+                        <span class="line"></span>
+                        <a href="/user/register">注册</a>
+                    </li>
+                    <li>
+                        <span class="line"></span>
+                        <a href="/user/login">登录</a>
+                    </li>
+                </div>
+                <div id="l-login" style="display: none;">
+                    <li>
+                        <span class="line"></span>
+                        <a id="l-welcome" href="#" style="font-size:18px;"></a>
+                    </li>
+                    <li>
+                        <span class="line"></span>
+                        <a href="#" id="l-logout">注销</a>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <div class="header-shadow"></div>
+</header>
+<section class="container" style="margin-top: 20px;">
+    <div class="content-wrap">
+        <div class="content">
+            <header class="article-header">
+                <h1 class="article-title" id="a-title"><a href="#"></a></h1>
+                <div class="article-meta">
+                    <span class="item article-meta-time">
+	             <time class="time"><i class="glyphicon glyphicon-time" id="a-time"></i></time>
+                </span>
+                </div>
+            </header>
+            <article class="article-content" id="a-content">
+
+                <div class="title" style="margin-top: 50px;">
+                    <h3>分享</h3>
+                </div>
+                <div style="margin-top: 15px;" class="bdsharebuttonbox">
+                    <a href="#" class="bds_more" data-cmd="more"></a>
+                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                </div>
+            </article>
+            <div class="title" style="margin-top: 15px;" id="comment">
+                <h3>评论</h3>
+            </div>
+            <div id="respond">
+                <form id="comment-form" name="comment-form" action="" method="POST">
+                    <div class="comment">
+                        <input name="" class="form-control" size="22" placeholder="您的昵称（必填）" maxlength="15"
+                               autocomplete="off" tabindex="1" type="text">
+                        <input name="" class="form-control" size="22" placeholder="您的网址或邮箱（非必填）" maxlength="58"
+                               autocomplete="off" tabindex="2" type="text">
+                        <div class="comment-box">
+                            <textarea placeholder="您的评论或留言（必填）" name="comment-textarea" id="comment-textarea"
+                                      cols="100%" rows="3" tabindex="3"></textarea>
+                            <div class="comment-ctrl">
+                                <div class="comment-prompt" style="display: none;"><i
+                                        class="fa fa-spin fa-circle-o-notch"></i> <span class="comment-prompt-text">评论正在提交中...请稍后</span>
+                                </div>
+                                <div class="comment-success" style="display: none;"><i class="fa fa-check"></i> <span
+                                        class="comment-prompt-text">评论提交成功...</span></div>
+                                <button type="submit" name="comment-submit" id="comment-submit" tabindex="4">评论</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="postcomments">
+                <ol id="comment_list" class="commentlist">
+                    <li class="comment-content" id="comment-0">
+                        <div class="comment-main">
+                            <p>
+                                暂无评论,快来第一个评论吧!!!
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <aside class="sidebar">
+        <div class="fixed">
+            <div class="widget widget_search">
+                <form class="navbar-form" action="/Search" method="post">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"
+                               maxlength="15" autocomplete="off">
+                        <span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span></div>
+                </form>
+            </div>
+        </div>
+    </aside>
+</section>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-link">
+            <div class="footer-link__item">
+                <h4 class="footer-title">关于我们</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">加入我们</a></li>
+                    <li class="item"><a href="#">联系我们</a></li>
+                    <li class="item"><a href="#">标签集</a></li>
+                    <li class="item"><a href="#">商务合作</a></li>
+                    <li class="item"><a href="#">免责声明</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">手机应用</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">加入我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <div class="footer-orcode"><img src="/user/images/app_qrcode.png" alt="#"></div>
+                <div class="orcode-text">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">关注我们</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">友情链接</h4>
+                <ul class="footer-list">
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a href="#">关于我们</a></li>
+                    <li class="item"><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright">
+            <p>©2017 ****** 版权所有。</p>
+        </div>
+    </div>
+</footer>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/user/js/article.js"></script>
+<script src="/common/js/util.js"></script>
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "1",
+            "bdSize": "32"
+        }, "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=0.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+</body>
+</html>

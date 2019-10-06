@@ -87,7 +87,7 @@ function initBlock(){
                          $('#b-'+i+'-title').val(block.title);
                          $('#b-'+i+'-author').val(block.authorName);
                          $('#b-'+i+'-info').val(block.articleNum+'帖子'+' . '+block.saveNum+'人收藏');
-                         $('#b-'+i+'-article').attr('href','/user/block/'+block.id);
+                         $('#b-'+i+'-article').attr('href','/user/block/'+block.id+"?pn=1");
                      }
                      break;
              }
