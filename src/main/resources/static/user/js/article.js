@@ -41,6 +41,42 @@ function initArticle() {
 
             }
         });
+        $("#comment-submit").click(function(){
+            if(username==null){
+                alert("您尚未登录,请登录后再进行评论");
+                window.location.reload();
+            }
+            $.ajax({
+                url: URL + '/api/comment',
+                type: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                data:{
+                    username:username,
+                    sessionId:$.cookie(username),
+                    content:$("#comment-textarea").val(),
+                    articleId:articleId,
+                    userName:username,
+                },
+                success:function(result){
+                    var status = result.code;
+                    switch (status) {
+                        case 200:
+                            alert("评论成功");
+                            window.location.reload();
+                            break;
+                        case 201:
+                            var errorCode=result.errorCode;
+                            var reason=result.reason;
+                            break;
+                    }
+                }
+            });
+            return false;
+        });
+    }else{
+        //todo
     }
 }
 
