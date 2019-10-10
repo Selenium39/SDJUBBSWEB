@@ -42,10 +42,20 @@ function initArticle() {
             }
         });
         $("#comment-submit").click(function(){
+            var send =true;
             if(username==null){
                 alert("您尚未登录,请登录后再进行评论");
+                send=false;
                 window.location.reload();
+                return false;
             }
+            if($("#comment-textarea").val().trim()==null||$("#comment-textarea").val().trim().length==0||$("#comment-textarea").val().trim()==""){
+                alert("评论内容不能为空");
+                send=false;
+                window.location.reload();
+                return false;
+            }
+            if(send){
             $.ajax({
                 url: URL + '/api/comment',
                 type: 'POST',
@@ -69,10 +79,17 @@ function initArticle() {
                         case 201:
                             var errorCode=result.errorCode;
                             var reason=result.reason;
+                            switch (errorCode){
+                                case 4000:
+                                    alert("评论内容不能为空");
+                                    break;
+                            }
+                            window.location.reload();
                             break;
                     }
                 }
             });
+            }
             return false;
         });
     }else{
