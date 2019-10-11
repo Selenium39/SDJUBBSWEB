@@ -37,3 +37,12 @@ input, button {
 img {
     vertical-align: top;
 }
+
+.comment-response{
+    color:#03A9F4;
+    margin-left:300px;
+}
+
+.comment-response >a{
+    margin:10px;
+}

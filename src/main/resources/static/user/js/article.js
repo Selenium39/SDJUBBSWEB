@@ -104,8 +104,13 @@ function createCommentView(index, comment) {
     C_p = $("<p></p>");
     C_a = $("<a></a>").removeClass('a').addClass("address").attr("href", "#").append(comment.userName);
     C_span1 = $("<span></span>").addClass("time").append("("+comment.createTime+")");
+    C_span2 = $("<span></span>").addClass("comment-response");
+    C_a1=$("<a></a>").append("举报");
+    C_a2=$("<a></a>").append("回复");
+    C_a3=$("<a></a>").append("查看回复(1)");
+    C_span2.append(C_a1).append(C_a2).append(C_a3);
     C_br = $("<br>");
-    C_p.append(C_a).append(C_span1).append(C_br).append(comment.content);
+    C_p.append(C_a).append(C_span1).append(C_span2).append(C_br).append(comment.content);
     C_div.append(C_p);
     C_li.append(C_span).append(C_div);
     $("#comment_list").prepend(C_li);
