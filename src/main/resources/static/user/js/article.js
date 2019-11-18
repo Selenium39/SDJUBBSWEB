@@ -36,83 +36,124 @@ function initArticle() {
                     $("#comment-0").remove();
                     $.each(comments, function (index, comment) {
                         createCommentView(index, comment);
+                        $("#comment-" + index).mouseenter(function () {
+                            $("#comment-report-" + (index - 1)).attr("style", "visibility:visible");
+                            $("#comment-reply-" + (index - 1)).attr("style", "visibility:visible");
+                        });
+                        $("#comment-" + index).mouseleave(function () {
+                            $("#comment-report-" + (index - 1)).attr("style", "visibility:hidden");
+                            $("#comment-reply-" + (index - 1)).attr("style", "visibility:hidden");
+                        });
+                        $.ajax({
+                            url: URL + '/api/comment/' + comment.id,
+                            type: 'GET',
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success(result) {
+                                var replys = result.data.replys;
+                                if (replys.length != 0) {
+                                    $("#comment-show-reply-" + index).attr("style", "visibility:visible").append("(" + replys.length + ")");
+                                    $.each(replys,function(index,reply){
+                                        createReplyView(index,reply);
+                                    });
+                                }
+                            }
+                        });
                     });
                 }
 
-            }
+            },
+
         });
-        $("#comment-submit").click(function(){
-            var send =true;
-            if(username==null){
+        $("#comment-submit").click(function () {
+            var send = true;
+            if (username == null) {
                 alert("您尚未登录,请登录后再进行评论");
-                send=false;
+                send = false;
                 window.location.reload();
                 return false;
             }
-            if($("#comment-textarea").val().trim()==null||$("#comment-textarea").val().trim().length==0||$("#comment-textarea").val().trim()==""){
+            if ($("#comment-textarea").val().trim() == null || $("#comment-textarea").val().trim().length == 0 || $("#comment-textarea").val().trim() == "") {
                 alert("评论内容不能为空");
-                send=false;
+                send = false;
                 window.location.reload();
                 return false;
             }
-            if(send){
-            $.ajax({
-                url: URL + '/api/comment',
-                type: 'POST',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data:{
-                    username:username,
-                    sessionId:$.cookie(username),
-                    content:$("#comment-textarea").val(),
-                    articleId:articleId,
-                    userName:username,
-                },
-                success:function(result){
-                    var status = result.code;
-                    switch (status) {
-                        case 200:
-                            alert("评论成功");
-                            window.location.reload();
-                            break;
-                        case 201:
-                            var errorCode=result.errorCode;
-                            var reason=result.reason;
-                            switch (errorCode){
-                                case 4000:
-                                    alert("评论内容不能为空");
-                                    break;
-                            }
-                            window.location.reload();
-                            break;
+            if (send) {
+                $.ajax({
+                    url: URL + '/api/comment',
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: {
+                        username: username,
+                        sessionId: $.cookie(username),
+                        content: $("#comment-textarea").val(),
+                        articleId: articleId,
+                        userName: username,
+                    },
+                    success: function (result) {
+                        var status = result.code;
+                        switch (status) {
+                            case 200:
+                                alert("评论成功");
+                                window.location.reload();
+                                break;
+                            case 201:
+                                var errorCode = result.errorCode;
+                                var reason = result.reason;
+                                switch (errorCode) {
+                                    case 4000:
+                                        alert("评论内容不能为空");
+                                        break;
+                                }
+                                window.location.reload();
+                                break;
+                        }
                     }
-                }
-            });
+                });
             }
             return false;
         });
-    }else{
+    } else {
         //todo
     }
 }
 
 function createCommentView(index, comment) {
     C_li = $("<li></li>").addClass("comment-content").attr('id', 'comment-' + (index + 1));
-    C_span = $("<span></span>").addClass("comment-f").empty().append("#"+(index + 1));
+    C_span = $("<span></span>").addClass("comment-f").empty().append("#" + (index + 1));
     C_div = $("<div></div>").addClass("comment-main");
     C_p = $("<p></p>");
-    C_a = $("<a></a>").removeClass('a').addClass("address").attr("href", "#").append(comment.userName);
-    C_span1 = $("<span></span>").addClass("time").append("("+comment.createTime+")");
+    C_a = $("<a></a>").removeClass('a').addClass("comment-name").attr("href", "#").append(comment.userName);
+    C_span1 = $("<span></span>").addClass("time").append("(" + comment.createTime + ")");
     C_span2 = $("<span></span>").addClass("comment-response");
-    C_a1=$("<a></a>").append("举报");
-    C_a2=$("<a></a>").append("回复");
-    C_a3=$("<a></a>").append("查看回复(1)");
+    C_a1 = $("<a></a>").append("举报").attr("style", "visibility:hidden").attr("id", "comment-report-" + index);
+    C_a2 = $("<a></a>").append("回复").attr("style", "visibility:hidden").attr("id", "comment-reply-" + index);
+    C_a3 = $("<a></a>").append("查看回复").attr("style", "visibility:hidden").attr("id", "comment-show-reply-" + index);
     C_span2.append(C_a1).append(C_a2).append(C_a3);
     C_br = $("<br>");
     C_p.append(C_a).append(C_span1).append(C_span2).append(C_br).append(comment.content);
     C_div.append(C_p);
     C_li.append(C_span).append(C_div);
     $("#comment_list").prepend(C_li);
+}
+
+function createReplyView(index,reply){
+    C_div = $("<div></div>").addClass("reply-main");
+    C_p = $("<p></p>");
+    C_a = $("<a></a>").removeClass('a').addClass("comment-name").attr("href", "#").append(comment.userName);
+    C_span1 = $("<span></span>").addClass("time").append("(" + comment.createTime + ")");
+    C_span2 = $("<span></span>").addClass("comment-response");
+    C_a1 = $("<a></a>").append("举报").attr("style", "visibility:hidden").attr("id", "comment-report-" + index);
+    C_a2 = $("<a></a>").append("回复").attr("style", "visibility:hidden").attr("id", "comment-reply-" + index);
+    C_a3 = $("<a></a>").append("查看回复").attr("style", "visibility:hidden").attr("id", "comment-show-reply-" + index);
+    C_span2.append(C_a1).append(C_a2).append(C_a3);
+    C_br = $("<br>");
+    C_p.append(C_a).append(C_span1).append(C_span2).append(C_br).append(comment.content);
+    C_div.append(C_p);
+
 }
 
