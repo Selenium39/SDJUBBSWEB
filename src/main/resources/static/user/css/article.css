@@ -51,13 +51,18 @@ img {
     font-weight: 600;
     font-family: initial;
 }
+.reply-name{
+    color:black;
+    font-weight: 600;
+    font-family: initial;
+}
 .reply-main {
     margin-left: 20px;
     margin-right: 50px;
     color: #888;
     line-height: 22px;
     position: relative;
-    font-size: 14px;
+    font-size: 12px;
     padding: 0 0 15px;
     word-wrap: break-word;
     max-height: 300px;

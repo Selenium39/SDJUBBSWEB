@@ -35,6 +35,7 @@ function initArticle() {
                 if (comments.length != 0) {
                     $("#comment-0").remove();
                     $.each(comments, function (index, comment) {
+                        var replyIsShowing = false;
                         createCommentView(index, comment);
                         $("#comment-" + index).mouseenter(function () {
                             $("#comment-report-" + (index - 1)).attr("style", "visibility:visible");
@@ -54,8 +55,20 @@ function initArticle() {
                                 var replys = result.data.replys;
                                 if (replys.length != 0) {
                                     $("#comment-show-reply-" + index).attr("style", "visibility:visible").append("(" + replys.length + ")");
-                                    $.each(replys,function(index,reply){
-                                        createReplyView(index,reply);
+                                    createResponseView(index);
+                                    var comment_index = index;
+                                    $("#comment-show-reply-" + index).click(function () {
+                                        if (replyIsShowing) {
+                                           $(".reply"+comment_index).remove();
+                                            replyIsShowing = false;
+                                            $("#comment-show-reply-" + index).empty().append("查看回复("+replys.length+")");
+                                        } else {
+                                            $("#comment-show-reply-" + index).empty().append("收起回复");
+                                            $.each(replys, function (index, reply) {
+                                                createReplyView(comment_index, index, reply);
+                                            })
+                                            replyIsShowing = true;
+                                        }
                                     });
                                 }
                             }
@@ -141,19 +154,35 @@ function createCommentView(index, comment) {
     $("#comment_list").prepend(C_li);
 }
 
-function createReplyView(index,reply){
+function createResponseView(index) {
     C_div = $("<div></div>").addClass("reply-main");
     C_p = $("<p></p>");
     C_a = $("<a></a>").removeClass('a').addClass("comment-name").attr("href", "#").append(comment.userName);
     C_span1 = $("<span></span>").addClass("time").append("(" + comment.createTime + ")");
     C_span2 = $("<span></span>").addClass("comment-response");
-    C_a1 = $("<a></a>").append("举报").attr("style", "visibility:hidden").attr("id", "comment-report-" + index);
-    C_a2 = $("<a></a>").append("回复").attr("style", "visibility:hidden").attr("id", "comment-reply-" + index);
-    C_a3 = $("<a></a>").append("查看回复").attr("style", "visibility:hidden").attr("id", "comment-show-reply-" + index);
+    C_a1 = $("<a></a>").append("举报").attr("style", "visibility:hidden").attr("id", "comment-report-" + (index + 1));
+    C_a2 = $("<a></a>").append("回复").attr("style", "visibility:hidden").attr("id", "comment-reply-" + (index + 1));
+    C_a3 = $("<a></a>").append("查看回复").attr("style", "visibility:hidden").attr("id", "comment-show-reply-" + (index + 1));
     C_span2.append(C_a1).append(C_a2).append(C_a3);
     C_br = $("<br>");
-    C_p.append(C_a).append(C_span1).append(C_span2).append(C_br).append(comment.content);
+    C_p.append(C_a).append("  ").append(C_span1).append(C_span2).append(C_br).append(comment.content);
     C_div.append(C_p);
-
 }
+
+function createReplyView(comment_index, index, reply) {
+    C_div = $("<div></div>").addClass("reply-main").addClass("reply"+comment_index);
+    C_p = $("<p></p>");
+    C_a = $("<a></a>").removeClass('a').addClass("reply-name").attr("href", "#").append(reply.sendUserName);
+    C_a_1 = $("<a></a>").removeClass('a').addClass("reply-name").attr("href", "#").append(reply.receiverUserName);
+    C_span1 = $("<span></span>").addClass("time").append("(" + reply.createTime + ")");
+    C_span2 = $("<span></span>").addClass("comment-response");
+    C_br = $("<br>");
+    C_p.append(C_a).append("  回复  ").append(C_a_1).append("  ").append(C_span1).append(C_span2).append(C_br).append(reply.content);
+    C_div.append(C_p);
+    $("#comment-" + (comment_index + 1)).append(C_div);
+}
+
+
+
+
 
