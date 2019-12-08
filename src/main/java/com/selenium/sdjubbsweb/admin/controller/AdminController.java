@@ -21,4 +21,10 @@ public class AdminController {
     public String index() {
         return AdminPage.ADMIN_PAGE_INDEX;
     }
+
+    @GetMapping(AdminApi.ADMIN_REQEUST_USER)
+    public String showUsers() {
+        return AdminPage.ADMIN_PAGE_USERS;
+    }
+
 }
