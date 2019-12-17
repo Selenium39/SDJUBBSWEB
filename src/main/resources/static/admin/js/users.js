@@ -6,7 +6,7 @@ $(function () {
 function paperSetting() {
     $('.table-sort').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
-        "bStateSave": true,//状态保存
+        "bStateSave": false,//状态保存
         stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
@@ -20,7 +20,8 @@ function paperSetting() {
                 type: 'GET',
                 data: {
                     limit: data.length,
-                    page: data.draw,
+                    page: ((data.start / data.length) + 1),
+                    order: data.columns[data.order[0].column].data + " " + data.order[0].dir,
                 },
                 xhrFields: {
                     withCredentials: true
@@ -29,13 +30,15 @@ function paperSetting() {
                     var pageInfo = result.data.pageInfo;
                     var returnData = {};
                     $("#totalCount").empty().append(pageInfo.total);
-                    returnData.draw = pageInfo.pageNum;//这里直接自行返回了draw计数器,应该由后台返回
+                    //这个值不能相同
+                    returnData.draw = data.draw;//这里直接自行返回了draw计数器,应该由后台返回
                     returnData.recordsTotal = pageInfo.total;//返回数据全部记录
                     returnData.recordsFiltered = pageInfo.total;//后台不实现过滤功能，每次查询均视作全部结果
                     returnData.data = pageInfo.list;//返回的数据列表
                     //console.log(returnData);
                     //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
                     //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                    console.log("callback");
                     callback(returnData);
                 }
             });
@@ -80,7 +83,7 @@ function paperSetting() {
                 }
             }
         ]
-    }).api();
+    });
 }
 
 // function initUsers() {
