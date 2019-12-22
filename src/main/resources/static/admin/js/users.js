@@ -1,6 +1,7 @@
 var URL = 'http://localhost:8080';
 $(function () {
     paperSetting()
+    paperEvent();
 });
 
 function paperSetting() {
@@ -10,11 +11,10 @@ function paperSetting() {
         stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 4, 5, 6, 7, 10, 11]}// 制定列不参与排序
+            {"orderable": false, "aTargets": [0, 4, 5, 6, 7, 11]}// 制定列不参与排序
         ],
         serverSide: true,//启用服务器端分页
         ajax: function (data, callback, settings) {
-            console.log(data);
             $.ajax({
                 url: URL + '/api/admin/user',
                 type: 'GET',
@@ -35,10 +35,8 @@ function paperSetting() {
                     returnData.recordsTotal = pageInfo.total;//返回数据全部记录
                     returnData.recordsFiltered = pageInfo.total;//后台不实现过滤功能，每次查询均视作全部结果
                     returnData.data = pageInfo.list;//返回的数据列表
-                    //console.log(returnData);
                     //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
                     //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-                    console.log("callback");
                     callback(returnData);
                 }
             });
@@ -60,7 +58,15 @@ function paperSetting() {
             {"data": "gender"},
             {"data": "email"},
             {"data": "phone"},
-            {"data": "headPicture"},
+            {
+                "data": "headPicture",
+                render: function (data, type, row, meta) {
+                    var content = "";
+                    content = '<img id="pix" style="width:50px;height:50px;border-radius:50%" src="' + data + '"/>';
+                    return content;
+                }
+
+            },
             {"data": "registerTime"},
             {"data": "lastLoginTime"},
             {
@@ -78,7 +84,7 @@ function paperSetting() {
             },
             {
                 render: function (data, type, row, meta) {
-                    var content = "<td class='td-manage'><a style='text-decoration:none' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a style='text-decoration:none' class='ml-5'  title='修改密码'><i class='Hui-iconfont'>&#xe63f;</i></a> <a title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
+                    var content = "<td><a id='unuse' style='text-decoration:none' title='禁用'><i  class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑' id='edit'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a id='change-password' style='text-decoration:none' class='ml-5'  title='修改密码'><i class='Hui-iconfont'>&#xe63f;</i></a> <a id='delete' title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
                     return content;
                 }
             }
@@ -86,33 +92,68 @@ function paperSetting() {
     });
 }
 
-// function initUsers() {
-//     $.ajax({
-//         url: URL + '/api/admin/user',
-//         type: 'GET',
-//         xhrFields: {
-//             withCredentials: true
-//         },
-//         success: function (result) {
-//             var users = result.data.users;
-//             alert(users.length);
-//             $.each(users, function (index, user) {
-//                // createUserView(index, user);
-//             });
-//         }
-//     });
-// }
-// <tr class="text-c">
-//     <td width="25"><input type="checkbox" name="" value=""></td>
-//     <td>16</td>
-//     <td>selenium</td>
-//     <td>0</td>
-//     <td>未知</td>
-//     <td>895484122@qq.com</td>
-// <td>18888888888</td>
-// <td>/common/images/0.jpg</td>
-// <td>2019-09-05 00:46:29</td>
-// <td>2019-09-05 00:46:29</td>
-// <td><span class="label label-success radius">有效</span></td>
-// <td class="td-manage"><a style="text-decoration:none" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-// </tr>
+function paperEvent() {
+    var table = $('.table-sort').DataTable();
+
+    //禁用和启用用户
+    $('.table-sort').on('click', 'a#unuse', function () {
+        //行数据
+        var data = table.row($(this).parents('tr')).data();
+        var td_status = $(this).parent('td').prev();
+        if (data.status == 0) {
+            layer.confirm('确定禁用用户 ' + data.username + '?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: URL + '/api/admin/user/' + data.id,
+                    type: 'PUT',
+                    data: {
+                        "status": 1,
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        td_status.empty().append("<span class=\"label label-danger radius\">禁用</span>");
+                        data.status = 1;
+                    }
+                });
+                layer.close(index);
+            })
+        } else {
+            layer.confirm('确定启用用户 ' + data.username + '?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: URL + '/api/admin/user/' + data.id,
+                    type: 'PUT',
+                    data: {
+                        "status": 0,
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        td_status.empty().append("<span class=\"label label-success radius\">有效</span>");
+                        data.status = 0;
+                    }
+                });
+                layer.close(index);
+            })
+        }
+    })
+
+    //删除用户
+    $('.table-sort').on('click', 'a#delete', function () {
+        var data = table.row($(this).parents('tr')).data();
+        layer.alert("确定删除用户 " + data.username + "?", {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                url: URL + '/api/admin/user/' + data.id,
+                type: 'DELETE',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    location.replace(location.href);
+                }
+            });
+            layer.close(index);
+        })
+    })
+}
