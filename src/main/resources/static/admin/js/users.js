@@ -55,7 +55,20 @@ function paperSetting() {
             {"data": "id"},
             {"data": "username"},
             {"data": "age"},
-            {"data": "gender"},
+            {
+                "data": "gender",
+                render: function (data, type, row, meta) {
+                    var content = "";
+                    if (data == 0) {
+                        content = "<td>男</td>"
+                    } else if (data == 1) {
+                        content = "<td>女</td>"
+                    } else {
+                        content = "<td>未知</td>"
+                    }
+                    return content;
+                }
+            },
             {"data": "email"},
             {"data": "phone"},
             {
@@ -84,7 +97,7 @@ function paperSetting() {
             },
             {
                 render: function (data, type, row, meta) {
-                    var content = "<td><a id='unuse' style='text-decoration:none' title='禁用'><i  class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑' id='edit'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a id='change-password' style='text-decoration:none' class='ml-5'  title='修改密码'><i class='Hui-iconfont'>&#xe63f;</i></a> <a id='delete' title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
+                    var content = "<td><a id='unuse' style='text-decoration:none' title='修改状态'><i  class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑' id='edit'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> <a id='change-password' style='text-decoration:none' class='ml-5'  title='修改密码'><i class='Hui-iconfont'>&#xe63f;</i></a> <a id='delete' title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
                     return content;
                 }
             }
@@ -155,5 +168,58 @@ function paperEvent() {
             });
             layer.close(index);
         })
-    })
+    });
+
+    $('.table-sort').on('click', 'a#edit', function () {
+        var data = table.row($(this).parents('tr')).data();
+        console.log(data);
+        $("#update_user_modal").modal("show");
+        //修改用户数据前的表单回显
+        showUpdateUser(data);
+        updateUser();
+    });
+}
+
+function showUpdateUser(data) {
+    $("#id").empty().append(data.id);
+    $("#username").attr("value", data.username);
+    $("#age").attr("value", data.age);
+    genderSelect(data.gender)
+    $("#email").attr("value", data.email);
+    $("#phone").attr("value", data.phone);
+    $("#head_picture").attr("src", "" + data.headPicture + "");
+    //预览上传的头像
+    $("#head_picture_file").change(function (e) {
+        var reader = new FileReader();
+        file = e.target.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("上传的文件格式不对,请重新上传...");
+            return false;
+        }
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#head_picture").attr("src", "" + this.result + "");
+        };
+    });
+}
+
+function genderSelect(gender) {
+    switch (gender) {
+        case 0:
+            $("#gender_male").attr("checked", "checked");
+            break;
+        case 1:
+            $("#gender_female").attr("checked", "checked");
+            break;
+        case 2:
+            $("#gender_unknown").attr("checked", "checked");
+            break;
+        default:
+            $("#gender_unknown").attr("checked", "checked");
+            break;
+    }
+}
+
+//todo 上传修改后的用户的信息
+function updateUser() {
 }
