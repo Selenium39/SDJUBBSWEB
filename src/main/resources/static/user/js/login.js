@@ -1,4 +1,4 @@
-var URL='http://localhost:8080';
+var URL = 'http://localhost:8080';
 $(function () {
     var signUpButton = document.getElementById('signUp')
     var signInButton = document.getElementById('signIn')
@@ -17,7 +17,7 @@ $(function () {
 
     $("#btn-login").click(function () {
         $.ajax({
-            url: URL+"/api/login",
+            url: URL + "/api/login",
             xhrFields: {
                 withCredentials: true
             },
@@ -34,7 +34,7 @@ $(function () {
                 $("#l-password-error").remove();
                 switch (status) {
                     case 200:
-                        $.cookie('username',username, {expires: 7, path: '/'});
+                        $.cookie('username', username, {expires: 7, path: '/'});
                         $.cookie(username, sessionId, {expires: 7, path: '/'});
                         window.location.href = '/user/index';
                         break;
@@ -54,7 +54,12 @@ $(function () {
                                 passwordErrorLabel.append(reason);
                                 $("#l-password").after(passwordErrorLabel);
                                 break;
-
+                            case 8003:
+                                alert("此用户被禁用");
+                                break;
+                            default:
+                                alert("登录失败");
+                                break;
                         }
                         break;
                     default:
@@ -70,7 +75,7 @@ $(function () {
         $("#r-form").validate({
             submitHandler: function () {
                 $.ajax({
-                    url: URL+"/api/register",
+                    url: URL + "/api/register",
                     type: "POST",
                     xhrFields: {
                         withCredentials: true

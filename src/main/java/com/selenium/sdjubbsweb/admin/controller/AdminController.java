@@ -22,6 +22,21 @@ public class AdminController {
         return AdminPage.ADMIN_PAGE_INDEX;
     }
 
+    /**
+     * method: get
+     * url: /login
+     * description: 登录
+     */
+    @GetMapping(AdminApi.ADMIN_REQUEST_LOGIN)
+    public String login() {
+        return AdminPage.ADMIN_PAGE_LOGIN;
+    }
+
+    /**
+     * method: get
+     * url: /user
+     * description: 用户信息
+     */
     @GetMapping(AdminApi.ADMIN_REQEUST_USER)
     public String showUsers() {
         return AdminPage.ADMIN_PAGE_USERS;
