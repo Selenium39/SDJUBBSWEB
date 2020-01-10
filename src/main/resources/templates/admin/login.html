@@ -37,7 +37,11 @@
                     <input class="input-text size-L" type="text" placeholder="验证码"
                            onblur="if(this.value==''){this.value='验证码:'}"
                            onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                    <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>
+                    <img id="verify-code" src="">
+                    <button id="refresh" type="button" style="margin-left:350px;margin-top:-80px;text-decoration:none;" class="btn btn-link">
+                        <i class="Hui-iconfont">&#xe68f;</i>刷新
+                    </button>
+                </div>
             </div>
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
@@ -53,5 +57,6 @@
 <div class="footer">@Copyright sdjubbs by Selenium</div>
 <script type="text/javascript" src="/common/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/admin/h-ui/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin/js/login.js"></script>
 </body>
 </html>
