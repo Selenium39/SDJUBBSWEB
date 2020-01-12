@@ -52,7 +52,29 @@ function login() {
         }
         ,
         success: function (result) {
-            console.log(result);
+            var status = result.code;
+            switch (status) {
+                case 200:
+                    var sessionId = result.data.sessionId;
+                    var username = result.data.username;
+                    console.log(sessionId)
+                    $.cookie('username', username, {expires: 7, path: '/'});
+                    $.cookie(username, sessionId, {expires: 7, path: '/'});
+                    window.location.href = '/admin/index';
+                    break;
+                case 201:
+                    var errorCode = result.errorCode;
+                    var reason = result.reason;
+                    switch (errorCode) {
+                        case 4001:
+                            alert(reason);
+                            $("#verifyCode").val("");
+                            getVerifyCode();
+                            break;
+                    }
+                    break;
+
+            }
         }
     })
     ;

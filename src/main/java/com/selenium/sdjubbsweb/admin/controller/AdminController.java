@@ -2,16 +2,22 @@ package com.selenium.sdjubbsweb.admin.controller;
 
 import com.selenium.sdjubbsweb.admin.api.AdminApi;
 import com.selenium.sdjubbsweb.admin.pages.AdminPage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * description:后台页面跳转
  */
 @Controller
+@Slf4j
 @RequestMapping("/admin")
 public class AdminController {
+
     /**
      * method: get
      * url: /
