@@ -9,6 +9,10 @@ function paperEvent() {
     $("#refresh").click(function () {
         getVerifyCode();
     });
+    $("#login").click(function () {
+        login();
+        return;
+    });
 }
 
 function getVerifyCode() {
@@ -31,4 +35,25 @@ function getVerifyCode() {
             }
         }
     });
+}
+
+function login() {
+    $.ajax({
+        url: URL + '/api/admin/login/',
+        type: 'POST',
+        data: {
+            username: $("#username").val(),
+            password: formEncryption($("#password").val()),
+            verifyCode: $("#verifyCode").val(),
+            recordId: $.cookie("recordId")
+        },
+        xhrFields: {
+            withCredentials: true
+        }
+        ,
+        success: function (result) {
+            console.log(result);
+        }
+    })
+    ;
 }

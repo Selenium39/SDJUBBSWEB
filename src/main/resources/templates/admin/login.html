@@ -18,37 +18,37 @@
 <body>
 <div class="header">SDJUBBS 后台管理系统</div>
 <div class="loginWraper">
-    <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="index.html" method="post">
+    <div class="loginBox">
+        <form class="form form-horizontal" id="loginForm">
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
-                    <input name="username" type="text" placeholder="用户名" class="input-text size-L">
+                    <input id="username" name="username" type="text" placeholder="用户名" class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
                 <div class="formControls col-xs-8">
-                    <input name="password" type="password" placeholder="密码" class="input-text size-L">
+                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
-                    <input class="input-text size-L" type="text" placeholder="验证码"
+                    <input id="verifyCode" class="input-text size-L" name="verifyCode" type="text" placeholder="验证码"
                            onblur="if(this.value==''){this.value='验证码:'}"
                            onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
                     <img id="verify-code" src="">
-                    <button id="refresh" type="button" style="margin-left:350px;margin-top:-80px;text-decoration:none;" class="btn btn-link">
+                    <button id="refresh" type="button" style="margin-left:350px;margin-top:-80px;text-decoration:none;"
+                            class="btn btn-link">
                         <i class="Hui-iconfont">&#xe68f;</i>刷新
                     </button>
                 </div>
             </div>
             <div class="row cl">
                 <div class="formControls col-xs-8 col-xs-offset-3">
-                    <input name="" type="submit" class="btn btn-success radius size-L"
-                           value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-                    <input name="" type="reset" class="btn btn-default radius size-L"
-                           value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                    <button id="login" type="button" class="btn btn-success radius size-L">&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;
+                    </button>
+                    <button id="cancel" type="reset" class="btn btn-default radius size-L">&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;</button>
                 </div>
             </div>
         </form>
@@ -57,6 +57,9 @@
 <div class="footer">@Copyright sdjubbs by Selenium</div>
 <script type="text/javascript" src="/common/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/admin/h-ui/h-ui/js/H-ui.min.js"></script>
+<script src="/common/js/md5.js"></script>
+<script src="/common/js/encryption.js"></script>
+<script src="/common/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="/admin/js/login.js"></script>
 </body>
 </html>
