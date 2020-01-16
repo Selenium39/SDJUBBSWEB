@@ -1,4 +1,6 @@
 var URL = 'http://localhost:8080';
+var username = $.cookie('username');
+var sessionId = $.cookie(username);
 $(function () {
     paperSetting()
     paperEvent();
@@ -19,6 +21,8 @@ function paperSetting() {
                 url: URL + '/api/admin/user',
                 type: 'GET',
                 data: {
+                    username: '' + username,
+                    sessionId: '' + sessionId,
                     limit: data.length,
                     page: ((data.start / data.length) + 1),
                     order: data.columns[data.order[0].column].data + " " + data.order[0].dir,

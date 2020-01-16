@@ -73,7 +73,6 @@ function login() {
                             break;
                     }
                     break;
-
             }
         }
     })
