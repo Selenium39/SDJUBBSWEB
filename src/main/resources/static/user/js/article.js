@@ -10,12 +10,12 @@ function initArticle() {
     $('a').attr('draggable', 'false');
     $('#slider').slider();
     wallterFall();
-    var username = $.cookie('username');
-    if (username == null) {//用户没有登录
+    var name = $.cookie('name');
+    if (name == null) {//用户没有登录
         $("#l-no-login").show();
         $("#l-login").hide();
     } else {//用户登录
-        $("#l-welcome").empty().append(username);
+        $("#l-welcome").empty().append(name);
         $("#l-login").show();
         $("#l-no-login").hide();
     }
@@ -92,7 +92,7 @@ function initArticle() {
         });
         $("#comment-submit").click(function () {
             var send = true;
-            if (username == null) {
+            if (name == null) {
                 alert("您尚未登录,请登录后再进行操作");
                 send = false;
                 window.location.reload();
@@ -117,12 +117,12 @@ function initArticle() {
                         withCredentials: true
                     },
                     data: {
-                        username: username,
-                        sessionId: $.cookie(username),
+                        name: name,
+                        sessionId: $.cookie(name),
                         receiverUserId: $("textarea").attr("receiver-user-id"),
                         receiverUserName: $("textarea").attr("receiver-user-Name"),
                         content: $("#comment-textarea").val(),
-                        sendUserName: username,
+                        sendUserName: name,
                         commentId: $("textarea").attr("comment-id"),
                     },
                     success: function (result) {
@@ -156,11 +156,11 @@ function initArticle() {
                         withCredentials: true
                     },
                     data: {
-                        username: username,
-                        sessionId: $.cookie(username),
+                        name: name,
+                        sessionId: $.cookie(name),
                         content: $("#comment-textarea").val(),
                         articleId: articleId,
-                        userName: username,
+                        userName: name,
                     },
                     success: function (result) {
                         var status = result.code;

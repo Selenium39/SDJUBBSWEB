@@ -1,6 +1,6 @@
 var URL = 'http://localhost:8080';
-var username = $.cookie('username');
-var sessionId = $.cookie(username);
+var name = $.cookie('name');
+var sessionId = $.cookie(name);
 $(function () {
     paperSetting()
     paperEvent();
@@ -21,7 +21,7 @@ function paperSetting() {
                 url: URL + '/api/admin/user',
                 type: 'GET',
                 data: {
-                    username: '' + username,
+                    name: '' + name,
                     sessionId: '' + sessionId,
                     limit: data.length,
                     page: ((data.start / data.length) + 1),
@@ -123,6 +123,8 @@ function paperEvent() {
                     url: URL + '/api/admin/user/' + data.id,
                     type: 'PUT',
                     data: {
+                        name: '' + name,
+                        sessionId: '' + sessionId,
                         "status": 1,
                     },
                     xhrFields: {
@@ -141,6 +143,8 @@ function paperEvent() {
                     url: URL + '/api/admin/user/' + data.id,
                     type: 'PUT',
                     data: {
+                        name: '' + name,
+                        sessionId: '' + sessionId,
                         "status": 0,
                     },
                     xhrFields: {
@@ -163,6 +167,10 @@ function paperEvent() {
             $.ajax({
                 url: URL + '/api/admin/user/' + data.id,
                 type: 'DELETE',
+                data: {
+                    name: '' + name,
+                    sessionId: '' + sessionId,
+                },
                 xhrFields: {
                     withCredentials: true
                 },
@@ -180,6 +188,8 @@ function paperEvent() {
         $("#update_user_modal").modal("show");
         //修改用户数据前的表单回显
         showUpdateUser(data);
+    });
+    $("#btn_update_user").click(function () {
         updateUser();
     });
 }
@@ -226,4 +236,23 @@ function genderSelect(gender) {
 
 //todo 上传修改后的用户的信息
 function updateUser() {
+    console.log("update user");
+    var id = $("#id").text();
+    console.log("id: " + id);
+    $.ajax({
+        url: URL + '/api/admin/user/' + id,
+        type: 'PUT',
+        data: {
+            name: '' + name,
+            sessionId: '' + sessionId,
+            data: $("#update_user_form").serialize()
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            //todo
+            layer.closeAll();
+        }
+    });
 }

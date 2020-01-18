@@ -7,12 +7,12 @@ $(function () {
 function initIndex() {
     $('#slider').slider();
     wallterFall();
-    var username=$.cookie('username');
-    if (username==null) {//用户没有登录
+    var name=$.cookie('name');
+    if (name==null) {//用户没有登录
         $("#l-no-login").show();
         $("#l-login").hide();
     } else {//用户登录
-        $("#l-welcome").append(username);
+        $("#l-welcome").append(name);
         $("#l-login").show();
         $("#l-no-login").hide();
     }
@@ -28,10 +28,10 @@ function eventHandler(){
 
 
 function logout() {
-    var username=$.cookie('username');
-    var sessionId=$.cookie(username);
-    if(username==null||sessionId==null){
-       alert(username+"尚未登录");
+    var name=$.cookie('name');
+    var sessionId=$.cookie(name);
+    if(name==null||sessionId==null){
+       alert(name+"尚未登录");
        window.location.href="/user/index";
        return;
     }
@@ -42,14 +42,14 @@ function logout() {
             withCredentials: true
         },
         data: {
-            username: username,
+            name: name,
             sessionId:sessionId,
         },
         success:function(result){
             var status = result.code;
             switch (status) {
                 case 200:
-                    alert(username+'已注销');
+                    alert(name+'已注销');
                     break;
                 case 201:
                     var errorCode=result.errorCode;
@@ -61,8 +61,8 @@ function logout() {
                     }
                     break;
             }
-            $.removeCookie(username,{path:'/'});
-            $.removeCookie('username',{path:'/'});
+            $.removeCookie(name,{path:'/'});
+            $.removeCookie('name',{path:'/'});
             $.removeCookie('JSESSIONID',{path:'/'});
             window.location.href="/user/index";
         }

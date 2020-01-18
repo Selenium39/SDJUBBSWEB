@@ -58,7 +58,7 @@ function login() {
                     var sessionId = result.data.sessionId;
                     var username = result.data.username;
                     console.log(sessionId)
-                    $.cookie('username', username, {expires: 7, path: '/'});
+                    $.cookie('name', username, {expires: 7, path: '/'});
                     $.cookie(username, sessionId, {expires: 7, path: '/'});
                     window.location.href = '/admin/index';
                     break;
