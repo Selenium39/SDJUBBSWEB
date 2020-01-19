@@ -79,7 +79,7 @@ function paperSetting() {
                 "data": "headPicture",
                 render: function (data, type, row, meta) {
                     var content = "";
-                    content = '<img id="pix" style="width:50px;height:50px;border-radius:50%" src="' + data + '"/>';
+                    content = '<img id="pix" style="width:50px;height:50px;border-radius:50%" src="' +this.URL+data + '"/>';
                     return content;
                 }
 
@@ -182,6 +182,7 @@ function paperEvent() {
         })
     });
 
+    //修改用户
     $('.table-sort').on('click', 'a#edit', function () {
         var data = table.row($(this).parents('tr')).data();
         console.log(data);
@@ -192,6 +193,42 @@ function paperEvent() {
     $("#btn_update_user").click(function () {
         updateUser();
     });
+    //修改密码
+    $('.table-sort').on('click', 'a#change-password', function () {
+            var data = table.row($(this).parents('tr')).data();
+            console.log(data);
+            $("#change_password_modal").modal("show");
+            $("#p-id").empty().append(data.id);
+        });
+    $("#btn_change_password").click(function(){
+        changePassword();
+    });
+    //新增用户
+    $("#addUser").click(function(){
+        $("#add_user_modal").modal("show");
+        //设置默认头像
+        $("#upload_head_picture").attr("src","" +URL+"/common/images/avatar/default.jpg");
+    });
+    $("#btn_add_user").click(function(){
+    var formData = new FormData($("#add_user_form")[0]);
+        formData.append("name", name);
+        formData.append("sessionId",sessionId)
+        $.ajax({
+            url: URL + '/api/admin/user/',
+            type: 'POST',
+             data: formData,
+             cache : false,
+             contentType : false,
+             processData : false,
+             xhrFields: {
+                     withCredentials: true
+             },
+             success: function (result) {
+                    $("#add_user_modal").modal("hide");
+                    location.replace(location.href);
+             }
+        });
+    });
 }
 
 function showUpdateUser(data) {
@@ -201,7 +238,7 @@ function showUpdateUser(data) {
     genderSelect(data.gender)
     $("#email").attr("value", data.email);
     $("#phone").attr("value", data.phone);
-    $("#head_picture").attr("src", "" + data.headPicture + "");
+    $("#head_picture").attr("src", "" +URL+data.headPicture + "");
     //预览上传的头像
     $("#head_picture_file").change(function (e) {
         var reader = new FileReader();
@@ -239,20 +276,50 @@ function updateUser() {
     console.log("update user");
     var id = $("#id").text();
     console.log("id: " + id);
+    var formData = new FormData($("#update_user_form")[0]);
+    formData.append("name", name);
+    formData.append("sessionId",sessionId)
     $.ajax({
         url: URL + '/api/admin/user/' + id,
         type: 'PUT',
-        data: {
-            name: '' + name,
-            sessionId: '' + sessionId,
-            data: $("#update_user_form").serialize()
-        },
+        data: formData,
+        cache : false,
+        contentType : false,
+        processData : false,
         xhrFields: {
             withCredentials: true
         },
         success: function (result) {
-            //todo
-            layer.closeAll();
+            $("#update_user_modal").modal("hide");
+            location.replace(location.href);
         }
     });
+}
+
+function changePassword(){
+       var id = $("#p-id").text();
+       if($("#password1").val()!=$("#password2").val()){
+             alert("密码不一致");
+             return ;
+       }
+       console.log('name: '+name);
+       console.log('sessionId: '+sessionId);
+        $.ajax({
+               url: URL + '/api/admin/user/' + id,
+               type: 'PUT',
+               data: {
+                  name: '' + name,
+                  sessionId: '' + sessionId,
+                  password:formEncryption($("#password1").val())
+               },
+               xhrFields: {
+                   withCredentials: true
+               },
+               success: function (result) {
+                   $("#change_password_modal").modal("hide");
+                   location.replace(location.href);
+               }
+           });
+
+
 }

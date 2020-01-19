@@ -83,7 +83,7 @@ function initBlock(){
                      var blocks=result.data.blocks;
                      for(let i=0;i<5;i++){
                          var block=blocks[i];
-                         $('#b-'+i+'-pic').attr('src',block.blockPicture);
+                         $('#b-'+i+'-pic').attr('src',URL+block.blockPicture);
                          $('#b-'+i+'-title').val(block.title);
                          $('#b-'+i+'-author').val(block.authorName);
                          $('#b-'+i+'-info').val(block.articleNum+'帖子'+' . '+block.saveNum+'人收藏');
