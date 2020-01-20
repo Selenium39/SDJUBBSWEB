@@ -52,7 +52,9 @@ function paperSetting() {
         columns: [
             {
                 render: function (data, type, row, meta) {
-                    var content = "<input type='checkbox'>";
+                    if(row.id!=null){//排除全选的checkBox
+                    var content = "<input type='checkbox' value="+row.id+">";
+                    }
                     return content;
                 }
             },
@@ -223,10 +225,26 @@ function paperEvent() {
             };
         });
     });
+    //批量删除
+    $("#batchDelete").click(function(){
+        var ids="";
+        $.each($('input:checkbox:checked'),function(){
+           if($(this).attr("value")!=null){
+           ids+=$(this).attr("value")+","
+           }
+        });
+         ids=ids.substring(0,ids.length-1);
+         var result=confirm("确定进行批量删除?");
+         if(result==true){
+         deleteUserByBatch(ids);
+         }
+    });
+
     $("#btn_add_user").click(function () {
         var formData = new FormData($("#add_user_form")[0]);
         formData.append("name", name);
         formData.append("sessionId", sessionId)
+        formData.append("password",formEncryption($("#add_password").val()))
         $.ajax({
             url: URL + '/api/admin/user/',
             type: 'POST',
@@ -285,7 +303,6 @@ function genderSelect(gender) {
     }
 }
 
-//todo 上传修改后的用户的信息
 function updateUser() {
     console.log("update user");
     var id = $("#id").text();
@@ -334,6 +351,22 @@ function changePassword() {
             location.replace(location.href);
         }
     });
+}
 
-
+function deleteUserByBatch(ids){
+       $.ajax({
+             url: URL + '/api/admin/users',
+             type: 'DELETE',
+             data: {
+                 name: '' + name,
+                 sessionId: '' + sessionId,
+                 ids:ids
+             },
+             xhrFields: {
+                 withCredentials: true
+             },
+             success: function (result) {
+                 location.replace(location.href);
+             }
+         });
 }

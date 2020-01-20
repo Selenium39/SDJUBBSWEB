@@ -30,8 +30,8 @@
         <button type="submit" class="btn btn-success radius" id="1656" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a
-            class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
+        <a id="batchDelete" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
         <a id="addUser" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span>
         <span class="r">共有数据：<strong id="totalCount">0</strong> 条</span>
     </div>
@@ -39,7 +39,7 @@
         <table width="100%" class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="25"><input type="checkbox"></th>
                 <th width="50">ID</th>
                 <th width="100">用户名</th>
                 <th width="50">年龄</th>
@@ -197,14 +197,15 @@
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">用户名:</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input type="text" class="input-text radius" autocomplete="off" name="username">
+                            <input placeholder="(必需)" type="text" class="input-text radius" autocomplete="off"
+                                   name="username">
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">密码:</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input type="password" class="input-text radius" autocomplete="off"
-                                   name="password">
+                                   id="add_password" placeholder="(必需)">
                         </div>
                     </div>
                     <div class="row cl">
@@ -233,7 +234,7 @@
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-3">邮箱:</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input type="email" class="input-text radius" name="email"
+                            <input type="email" class="input-text radius" name="email" placeholder="必需"
                             />
                         </div>
                     </div>
