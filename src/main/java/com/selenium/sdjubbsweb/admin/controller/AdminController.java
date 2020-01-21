@@ -48,4 +48,14 @@ public class AdminController {
         return AdminPage.ADMIN_PAGE_USERS;
     }
 
+    /**
+     * method: get
+     * url: /article
+     * description: 文章信息
+     */
+    @GetMapping(AdminApi.ADMIN_REQUEST_ARTICLE)
+    public String showArticles() {
+        return AdminPage.ADMIN_PAGE_ARTICLE;
+    }
+
 }
