@@ -58,4 +58,14 @@ public class AdminController {
         return AdminPage.ADMIN_PAGE_ARTICLE;
     }
 
+    /**
+     * method: get
+     * url: /md
+     * description: markdown编辑
+     */
+    @GetMapping(AdminApi.ADMIN_REQUEST_MD)
+    public String MDEditor() {
+        return AdminPage.ADMIN_PAGE_MD;
+    }
+
 }
