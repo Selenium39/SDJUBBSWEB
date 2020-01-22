@@ -2,7 +2,8 @@ var URL = 'http://localhost:8080';
 var name = $.cookie('name');
 var sessionId = $.cookie(name);
 $(function () {
-    paperSetting()
+    paperSetting();
+    paperEvent();
 });
 
 function paperSetting() {
@@ -83,4 +84,111 @@ function paperSetting() {
     });
 }
 
+function paperEvent(){
+var table = $('.table-sort').DataTable();
+        //置顶文章
+            $('.table-sort').on('click', 'a#unuse', function () {
+                //行数据
+                var data = table.row($(this).parents('tr')).data();
+                var td_status = $(this).parent('td').prev();
+                if (data.priority == 0) {
+                    layer.confirm('确定置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
+                        $.ajax({
+                            url: URL + '/api/admin/article/' + data.id,
+                            type: 'PUT',
+                            data: {
+                                name: '' + name,
+                                sessionId: '' + sessionId,
+                                "priority": 1,
+                            },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function (result) {
+                                td_status.empty().append("<span class=\"label label-danger radius\">置顶</span>");
+                                data.status = 1;
+                            }
+                        });
+                        layer.close(index);
+                    })
+                } else {
+                    layer.confirm('确定取消置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
+                        $.ajax({
+                            url: URL + '/api/admin/article/' + data.id,
+                            type: 'PUT',
+                            data: {
+                                name: '' + name,
+                                sessionId: '' + sessionId,
+                                "priority": 0,
+                            },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            success: function (result) {
+                                td_status.empty().append("<span class=\"label label-success radius\">普通</span>");
+                                data.status = 0;
+                            }
+                        });
+                        layer.close(index);
+                    })
+                }
+            });
+
+
+    //删除文章
+    $('.table-sort').on('click', 'a#delete', function () {
+        var data = table.row($(this).parents('tr')).data();
+        layer.alert("确定删除文章 " + data.title + "?", {icon: 3, title: '提示'}, function (index) {
+            $.ajax({
+                url: URL + '/api/admin/article/' + data.id,
+                type: 'DELETE',
+                data: {
+                    name: '' + name,
+                    sessionId: '' + sessionId,
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    location.replace(location.href);
+                }
+            });
+            layer.close(index);
+        })
+    });
+
+       //批量删除
+        $("#batchDelete").click(function(){
+            var ids="";
+            $.each($('input:checkbox:checked'),function(){
+               if($(this).attr("value")!=null){
+               ids+=$(this).attr("value")+","
+               }
+            });
+             ids=ids.substring(0,ids.length-1);
+             var result=confirm("确定进行批量删除?");
+             if(result==true){
+             deleteArticleByBatch(ids);
+             }
+        });
+
+}
+
+function deleteArticleByBatch(ids){
+       $.ajax({
+             url: URL + '/api/admin/articles',
+             type: 'DELETE',
+             data: {
+                 name: '' + name,
+                 sessionId: '' + sessionId,
+                 ids:ids
+             },
+             xhrFields: {
+                 withCredentials: true
+             },
+             success: function (result) {
+                 location.replace(location.href);
+             }
+         });
+}
 

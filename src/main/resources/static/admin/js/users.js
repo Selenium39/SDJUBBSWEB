@@ -116,6 +116,7 @@ function paperEvent() {
 
     //禁用和启用用户
     $('.table-sort').on('click', 'a#unuse', function () {
+         console.log(data);
         //行数据
         var data = table.row($(this).parents('tr')).data();
         var td_status = $(this).parent('td').prev();
