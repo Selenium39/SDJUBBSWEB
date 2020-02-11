@@ -4,9 +4,7 @@ import com.selenium.sdjubbsweb.admin.api.AdminApi;
 import com.selenium.sdjubbsweb.admin.pages.AdminPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @Slf4j
 @RequestMapping("/admin")
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 public class AdminController {
 
     /**
@@ -65,7 +64,6 @@ public class AdminController {
      */
     @GetMapping(AdminApi.ADMIN_REQUEST_MD)
     public String MDEditor() {
-        return AdminPage.ADMIN_PAGE_MD;
+         return AdminPage.ADMIN_PAGE_MD;
     }
-
 }

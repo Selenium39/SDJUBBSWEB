@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增文章</title>
+    <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.9/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/common/editor.md/css/editormd.min.css"/>
+</head>
+<body>
+<form action="" method="post" class="form form-horizontal" id="add-article-form">
+    <div class="row cl">
+        <div class="formControls col-xs-8 col-sm-6" style="margin-left:95px; margin-bottom:10px;">
+            <input id="title" type="text" class="input-text radius size-XL" autocomplete="off" placeholder="输入文章标题">
+        </div>
+        <a id="add_article-btn" class="btn btn-danger radius size-XL">发布文章</a>
+    </div>
+    <div id="my-editormd">
+            <textarea class="editormd-markdown-textarea" name="doc"
+                      style="display:none;"></textarea>
+        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+        <textarea id="editormd-html-textarea" class="editormd-html-textarea" name="html"></textarea>
+    </div>
+</form>
+
+<!--新增文章模态框-->
+<div id="add_article_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">发布文章</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form form-horizontal">
+                    <div class="row cl">
+                        <label class="form-label col-lg-2"><big>板块</big></label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <span class="select-box">
+                            <select id="blockName" class="select" size="1">
+                            </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-lg-2"><big>优先级</big></label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <span class="select-box">
+                            <select id="priority" class="select" size="1">
+                                <option value="0" selected>普通</option>
+                                <option value="1">置顶</option>
+                            </select>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="submit-article-btn" type="button" class="btn btn-primary">发布</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/common/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/common/js/layer.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/common/editor.md/editormd.min.js"></script>
+<script type="text/javascript" src="/admin/js/markdown.js"></script>
+</html>

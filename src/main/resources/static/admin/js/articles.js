@@ -1,4 +1,5 @@
 var URL = 'http://localhost:8080';
+var LOCAL_URL = "http://localhost:8081";
 var name = $.cookie('name');
 var sessionId = $.cookie(name);
 $(function () {
@@ -52,8 +53,8 @@ function paperSetting() {
         columns: [
             {
                 render: function (data, type, row, meta) {
-                    if(row.id!=null){//排除全选的checkBox
-                    var content = "<input type='checkbox' value="+row.id+">";
+                    if (row.id != null) {//排除全选的checkBox
+                        var content = "<input type='checkbox' value=" + row.id + ">";
                     }
                     return content;
                 }
@@ -61,78 +62,78 @@ function paperSetting() {
             {"data": "id"},
             {"data": "title"},
             {"data": "authorName"},
-            {"data":"createTime"},
+            {"data": "createTime"},
             {
-            "data":"priority",
-            render: function (data, type, row, meta) {
-                                var content = "";
-                                if (data == 0) {
-                                    content = "<td><span class=\"label label-success radius\">普通</span></td>"
-                                } else {
-                                    content = "<td><span class=\"label label-danger radius\">置顶</span></td>"
-                                }
-                                return content;
-                            }
+                "data": "priority",
+                render: function (data, type, row, meta) {
+                    var content = "";
+                    if (data == 0) {
+                        content = "<td><span class=\"label label-success radius\">普通</span></td>"
+                    } else {
+                        content = "<td><span class=\"label label-danger radius\">置顶</span></td>"
+                    }
+                    return content;
+                }
             },
-             {
-               render: function (data, type, row, meta) {
-                                var content = "<td><a id='unuse' style='text-decoration:none' title='修改状态'><i  class='Hui-iconfont'>&#xe631;</i></a> <a id='delete' title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
-                                return content;
-                          }
-             },
+            {
+                render: function (data, type, row, meta) {
+                    var content = "<td><a id='unuse' style='text-decoration:none' title='修改状态'><i  class='Hui-iconfont'>&#xe631;</i></a> <a id='delete' title='删除'  class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6e2;</i></a></td>";
+                    return content;
+                }
+            },
         ]
     });
 }
 
-function paperEvent(){
-var table = $('.table-sort').DataTable();
-        //置顶文章
-            $('.table-sort').on('click', 'a#unuse', function () {
-                //行数据
-                var data = table.row($(this).parents('tr')).data();
-                var td_status = $(this).parent('td').prev();
-                if (data.priority == 0) {
-                    layer.confirm('确定置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
-                        $.ajax({
-                            url: URL + '/api/admin/article/' + data.id,
-                            type: 'PUT',
-                            data: {
-                                name: '' + name,
-                                sessionId: '' + sessionId,
-                                "priority": 1,
-                            },
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function (result) {
-                                td_status.empty().append("<span class=\"label label-danger radius\">置顶</span>");
-                                data.status = 1;
-                            }
-                        });
-                        layer.close(index);
-                    })
-                } else {
-                    layer.confirm('确定取消置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
-                        $.ajax({
-                            url: URL + '/api/admin/article/' + data.id,
-                            type: 'PUT',
-                            data: {
-                                name: '' + name,
-                                sessionId: '' + sessionId,
-                                "priority": 0,
-                            },
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            success: function (result) {
-                                td_status.empty().append("<span class=\"label label-success radius\">普通</span>");
-                                data.status = 0;
-                            }
-                        });
-                        layer.close(index);
-                    })
-                }
-            });
+function paperEvent() {
+    var table = $('.table-sort').DataTable();
+    //置顶文章
+    $('.table-sort').on('click', 'a#unuse', function () {
+        //行数据
+        var data = table.row($(this).parents('tr')).data();
+        var td_status = $(this).parent('td').prev();
+        if (data.priority == 0) {
+            layer.confirm('确定置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: URL + '/api/admin/article/' + data.id,
+                    type: 'PUT',
+                    data: {
+                        name: '' + name,
+                        sessionId: '' + sessionId,
+                        "priority": 1,
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        td_status.empty().append("<span class=\"label label-danger radius\">置顶</span>");
+                        data.status = 1;
+                    }
+                });
+                layer.close(index);
+            })
+        } else {
+            layer.confirm('确定取消置顶文章 ' + data.title + '?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: URL + '/api/admin/article/' + data.id,
+                    type: 'PUT',
+                    data: {
+                        name: '' + name,
+                        sessionId: '' + sessionId,
+                        "priority": 0,
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        td_status.empty().append("<span class=\"label label-success radius\">普通</span>");
+                        data.status = 0;
+                    }
+                });
+                layer.close(index);
+            })
+        }
+    });
 
 
     //删除文章
@@ -157,38 +158,43 @@ var table = $('.table-sort').DataTable();
         })
     });
 
-       //批量删除
-        $("#batchDelete").click(function(){
-            var ids="";
-            $.each($('input:checkbox:checked'),function(){
-               if($(this).attr("value")!=null){
-               ids+=$(this).attr("value")+","
-               }
-            });
-             ids=ids.substring(0,ids.length-1);
-             var result=confirm("确定进行批量删除?");
-             if(result==true){
-             deleteArticleByBatch(ids);
-             }
+    //批量删除
+    $("#batchDelete").click(function () {
+        var ids = "";
+        $.each($('input:checkbox:checked'), function () {
+            if ($(this).attr("value") != null) {
+                ids += $(this).attr("value") + ","
+            }
         });
+        ids = ids.substring(0, ids.length - 1);
+        var result = confirm("确定进行批量删除?");
+        if (result == true) {
+            deleteArticleByBatch(ids);
+        }
+    });
+    //新增文章
+    $("#addArticle").click(function () {
+        location.replace("/admin/md");
+    });
 
 }
 
-function deleteArticleByBatch(ids){
-       $.ajax({
-             url: URL + '/api/admin/articles',
-             type: 'DELETE',
-             data: {
-                 name: '' + name,
-                 sessionId: '' + sessionId,
-                 ids:ids
-             },
-             xhrFields: {
-                 withCredentials: true
-             },
-             success: function (result) {
-                 location.replace(location.href);
-             }
-         });
+//批量删除
+function deleteArticleByBatch(ids) {
+    $.ajax({
+        url: URL + '/api/admin/articles',
+        type: 'DELETE',
+        data: {
+            name: '' + name,
+            sessionId: '' + sessionId,
+            ids: ids
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            location.replace(location.href);
+        }
+    });
 }
 
