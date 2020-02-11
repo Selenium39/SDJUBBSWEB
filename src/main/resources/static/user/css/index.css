@@ -564,7 +564,7 @@ body {
 /* main-block */
 .main-block .main-cont__list .item {
     height: 328px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
 .main-block .pic,
@@ -585,7 +585,7 @@ body {
 .main-block .info p {
     line-height: 18px;
     color: #888;
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 .main-block .info .author {

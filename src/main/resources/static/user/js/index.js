@@ -1,4 +1,6 @@
-var URL='http://localhost:8080';
+var URL = 'http://localhost:8080';
+var SDJU_URL = 'https://www.sdju.edu.cn';
+var plugin = null;
 $(function () {
     initIndex();
     eventHandler();
@@ -7,8 +9,8 @@ $(function () {
 function initIndex() {
     $('#slider').slider();
     wallterFall();
-    var name=$.cookie('name');
-    if (name==null) {//用户没有登录
+    var name = $.cookie('name');
+    if (name == null) {//用户没有登录
         $("#l-no-login").show();
         $("#l-login").hide();
     } else {//用户登录
@@ -17,10 +19,11 @@ function initIndex() {
         $("#l-no-login").hide();
     }
     initBlock();
+    initNews();
 }
 
 
-function eventHandler(){
+function eventHandler() {
     $("#l-logout").click(function () {
         logout();
     });
@@ -28,32 +31,32 @@ function eventHandler(){
 
 
 function logout() {
-    var name=$.cookie('name');
-    var sessionId=$.cookie(name);
-    if(name==null||sessionId==null){
-       alert(name+"尚未登录");
-       window.location.href="/user/index";
-       return;
+    var name = $.cookie('name');
+    var sessionId = $.cookie(name);
+    if (name == null || sessionId == null) {
+        alert(name + "尚未登录");
+        window.location.href = "/user/index";
+        return;
     }
     $.ajax({
-        url: URL+"/api/logout",
-        type:"post",
+        url: URL + "/api/logout",
+        type: "post",
         xhrFields: {
             withCredentials: true
         },
         data: {
             name: name,
-            sessionId:sessionId,
+            sessionId: sessionId,
         },
-        success:function(result){
+        success: function (result) {
             var status = result.code;
             switch (status) {
                 case 200:
-                    alert(name+'已注销');
+                    alert(name + '已注销');
                     break;
                 case 201:
-                    var errorCode=result.errorCode;
-                    var reason=result.reason;
+                    var errorCode = result.errorCode;
+                    var reason = result.reason;
                     switch (errorCode) {
                         case 8004:
                             alert(reason);
@@ -61,36 +64,61 @@ function logout() {
                     }
                     break;
             }
-            $.removeCookie(name,{path:'/'});
-            $.removeCookie('name',{path:'/'});
-            $.removeCookie('JSESSIONID',{path:'/'});
-            window.location.href="/user/index";
+            $.removeCookie(name, {path: '/'});
+            $.removeCookie('name', {path: '/'});
+            $.removeCookie('JSESSIONID', {path: '/'});
+            window.location.href = "/user/index";
         }
     })
 }
 
-function initBlock(){
+function initBlock() {
     $.ajax({
-        url:URL+'/api/block',
-        type:'GET',
+        url: URL + '/api/block',
+        type: 'GET',
         xhrFields: {
             withCredentials: true
         },
-        success:function(result){
-             var code=result.code;
-             switch (code) {
-                 case 200:
-                     var blocks=result.data.blocks;
-                     for(let i=0;i<5;i++){
-                         var block=blocks[i];
-                         $('#b-'+i+'-pic').attr('src',URL+block.blockPicture);
-                         $('#b-'+i+'-title').val(block.title);
-                         $('#b-'+i+'-author').val(block.authorName);
-                         $('#b-'+i+'-info').val(block.articleNum+'帖子'+' . '+block.saveNum+'人收藏');
-                         $('#b-'+i+'-article').attr('href','/user/block/'+block.id+"?pn=1");
-                     }
-                     break;
-             }
+        success: function (result) {
+            var code = result.code;
+            switch (code) {
+                case 200:
+                    var blocks = result.data.blocks;
+                    for (let i = 0; i < 5; i++) {
+                        var block = blocks[i];
+                        $('#b-' + i + '-pic').attr('src', URL + block.blockPicture);
+                        $('#b-' + i + '-title').val(block.title);
+                        $('#b-' + i + '-author').val(block.authorName);
+                        $('#b-' + i + '-info').val(block.articleNum + '帖子' + ' . ' + block.saveNum + '人收藏');
+                        $('#b-' + i + '-article').attr('href', '/user/block/' + block.id + "?pn=1");
+                    }
+                    break;
+            }
+        }
+    });
+}
+
+function initNews() {
+    $.ajax({
+        url: URL + '/api/news',
+        type: 'GET',
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            var code = result.code;
+            switch (code) {
+                case 200:
+                    var news = result.data.news;
+                    for (let i = 0; i < news.length - 1; i++) {
+                        var newObject = news[i];
+                        // console.log($(newObject.title).html());
+                        //$("#news-item-" + i).attr("data-title", $(newObject.title).html());
+                        $("#news-a-" + i).attr("href", SDJU_URL + newObject.url);
+                        $("#news-img-" + i).attr("src", SDJU_URL + newObject.src);
+                    }
+                    break;
+            }
         }
     });
 }
@@ -126,8 +154,7 @@ function wallterFall() {
     });
 };
 
-;(function ($, window, document, undefined) {
-
+(function ($, window, document, undefined) {
     var Plugin = function (elem) {
         var self = this;
 
@@ -154,6 +181,7 @@ function wallterFall() {
             self.data_author.push($(this).attr('data-author') ? $(this).attr('data-author') : '');
         });
     };
+    plugin = Plugin;
 
     Plugin.prototype = {
         inital: function () {
@@ -257,7 +285,6 @@ function wallterFall() {
 
         autoPlay: function () {
             var self = this;
-
             this.timer = setInterval(function () {
                 self.$slider_next.click();
             }, 4000);

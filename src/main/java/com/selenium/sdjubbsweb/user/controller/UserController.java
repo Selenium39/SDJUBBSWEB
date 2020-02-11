@@ -2,6 +2,7 @@ package com.selenium.sdjubbsweb.user.controller;
 
 import com.selenium.sdjubbsweb.user.api.UserApi;
 import com.selenium.sdjubbsweb.user.pages.UserPage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
     /**
      * method: get
@@ -87,10 +89,26 @@ public class UserController {
     /**
      * method: get
      * url: /article
-     * description: 文章
+     * description: 查看文章
      */
     @GetMapping(UserApi.USER_ARTICLE)
     public String showArticle(@PathVariable("id") Integer id) {
         return UserPage.USER_PAGE_ARTICLE;
+    }
+
+    /**
+     * method: get
+     * url: /md
+     * description: 添加文章
+     */
+    @GetMapping(UserApi.USER_MD)
+    public String addArticle() {
+        log.info("addArticle");
+        return UserPage.USER_PAGE_MARKDOWN;
+    }
+
+    @GetMapping(UserApi.USER_PROFILE)
+    public String showProfile() {
+        return UserPage.USER_PAGE_PROFILE;
     }
 }
