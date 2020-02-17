@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/user/css/reset.css">
     <link rel="stylesheet" href="/user/css/index.css">
-    <link rel="stylesheet" href="/user/css/blocks.css">
+    <link rel="stylesheet" type="text/css" href="/user/css/font-awesome.min.css">
     <link rel="stylesheet" href="/user/css/profile.css">
 </head>
 <body>
@@ -63,14 +63,18 @@
             <ol class="navpath">
                 <li><a href="/user/index">首页</a></li>
                 <li> >></li>
-                <li class="active"><a href="/user/profile">个人中心</a></li>
+                <li class="active"><a href="/user/profile">个人资料</a></li>
             </ol>
         </div>
-        <div class="main-cont main-block">
-            <div class="main-cont__title">
-                <h3>个人中心</h3>
-            </div>
-
+        <div class="s-container">
+            <div class="s-row"><p>id:</p><input id="p-id" type="text" readonly/></div>
+            <div class="s-row"><p>用户名:</p><input id="p-username" type="text" readonly/></div>
+            <div class="s-row"><p>年龄:</p><input id="p-age" type="text" readonly/></div>
+            <div class="s-row"><p>性别:</p><input id="p-gender" type="text" readonly/></div>
+            <div class="s-row"><p>邮箱:</p><input id="p-email" type="text" readonly/></div>
+            <div class="s-row"><p>手机号:</p><input id="p-phone" type="text" readonly/></div>
+            <div class="s-row"><p>头像:</p><img id="p-head-picture" style="width:50px;height:50px;border-radius:50%"
+                                              src=""/></div>
         </div>
     </div>
     <a href="#" id="readMore">回到顶部</a>

@@ -44,3 +44,51 @@
         top: 84px
     }
 }
+
+.navpath {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.navpath > li {
+    display: inline-block;
+}
+
+.active > a {
+    color: #21c5d9;
+}
+
+.s-container {
+    color: #292323;
+    margin-bottom: 20px;
+    margin-left: 200px;
+}
+
+.s-row {
+    width: 500px;
+    height: 30px;
+    margin-bottom:20px;
+}
+
+.s-row > p {
+    height:30px;
+    width:100px;
+    float: left;
+    font-weight:200;
+    padding:7px;
+}
+
+.s-row > input {
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    color: #000000;
+    background-color: #d4c3c654;
+    height:30px;
+    width:300px;
+}
+
+

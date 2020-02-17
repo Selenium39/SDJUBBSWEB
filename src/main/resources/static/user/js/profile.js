@@ -1,4 +1,6 @@
 var URL = 'http://localhost:8080';
+var name = $.cookie('name');
+var sessionId = $.cookie(name);
 $(function () {
     initProfile();
     eventHandler();
@@ -14,6 +16,7 @@ function initProfile() {
         $("#l-welcome").append(name);
         $("#l-login").show();
         $("#l-no-login").hide();
+        showProfile();
     }
 }
 
@@ -21,6 +24,42 @@ function eventHandler() {
     $("#l-logout").click(function () {
         logout();
     });
+}
+
+function showProfile() {
+    $.ajax({
+        url: URL + "/api/user/" + name,
+        type: "get",
+        xhrFields: {
+            withCredentials: true
+        },
+        data: {
+            name: name,
+            sessionId: sessionId,
+        },
+        success: function (result) {
+            var status = result.code;
+            switch (status) {
+                case 200:
+                    //console.log(result.data.user);
+                    var user = result.data.user;
+                    createProfileView(user);
+                    break;
+
+            }
+        }
+    });
+}
+
+function createProfileView(user) {
+    console.log(user);
+    $("#p-id").attr("value", user.id);
+    $("#p-username").attr("value", user.username);
+    $("#p-age").attr("value", user.age);
+    $("#p-gender").attr("value", user.gender);
+    $("#p-email").attr("value", user.email);
+    $("#p-phone").attr("value", user.phone);
+    $("#p-head-picture").attr("src", URL + user.headPicture);
 }
 
 
@@ -90,7 +129,11 @@ function wallterFall() {
                 n++;
             }
 
-            $(this).css({position: 'absolute', top: min_h + (n * 20), left: minH_index * item_w + minH_index * 20});
+            $(this).css({
+                position: 'absolute',
+                top: min_h + (n * 20),
+                left: minH_index * item_w + minH_index * 20
+            });
 
             // height_arr 更新
             height_arr[minH_index] += $wallterFall_item.eq(i).outerHeight();
