@@ -42,7 +42,7 @@ public class AdminController {
      * url: /user
      * description: 用户信息
      */
-    @GetMapping(AdminApi.ADMIN_REQEUST_USER)
+    @GetMapping(AdminApi.ADMIN_REQUEST_USER)
     public String showUsers() {
         return AdminPage.ADMIN_PAGE_USERS;
     }
@@ -63,7 +63,12 @@ public class AdminController {
      * description: markdown编辑
      */
     @GetMapping(AdminApi.ADMIN_REQUEST_MD)
-    public String MDEditor() {
-         return AdminPage.ADMIN_PAGE_MD;
+    public String showMDEditor() {
+        return AdminPage.ADMIN_PAGE_MD;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_FEATURE_MESSAGE)
+    public String showMessages() {
+        return AdminPage.ADMIN_PAGE_FEATURE_MESSAGE;
     }
 }

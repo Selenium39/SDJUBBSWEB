@@ -11,4 +11,6 @@ public class UserApi {
     public static final String USER_ARTICLE = "/article/{id}";
     public static final String USER_MD = "/md";
     public static final String USER_PROFILE = "/profile";
+    public static final String USER_FEATURE = "/feature";
+    public static final String USER_FEATURE_MESSAGE = "/feature/message";
 }

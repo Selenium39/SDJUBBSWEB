@@ -111,4 +111,10 @@ public class UserController {
     public String showProfile() {
         return UserPage.USER_PAGE_PROFILE;
     }
+
+    @GetMapping(UserApi.USER_FEATURE_MESSAGE)
+    public String showFeatureMessage() {
+        return UserPage.USER_PAGE_MESSAGE;
+    }
+
 }

@@ -10,4 +10,5 @@ public class UserPage {
     public static final String USER_PAGE_ARTICLE = "/user/article";
     public static final String USER_PAGE_MARKDOWN = "/user/markdown";
     public static final String USER_PAGE_PROFILE = "/user/profile";
+    public static final String USER_PAGE_MESSAGE = "/user/message";
 }
