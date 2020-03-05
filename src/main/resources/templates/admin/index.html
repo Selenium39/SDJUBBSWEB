@@ -92,6 +92,8 @@
             <dd>
                 <ul>
                     <li><a data-href="/admin/article" data-title="文章列表" href="javascript:void(0)">文章列表</a></li>
+                    <li><a data-href="/admin/comment" data-title="文章评论" href="javascript:void(0)">文章评论&nbsp;&nbsp;<span
+                            id="reportedCommentCount" class="badge badge-danger" style="display:inline">0</span></a></li>
                 </ul>
             </dd>
         </dl>
@@ -103,7 +105,8 @@
             </dt>
             <dd>
                 <ul>
-                    <li><a data-href="/admin/feature/message" data-title="留言板" href="javascript:void(0)">留言板</a></li>
+                    <li><a data-href="/admin/feature/message" data-title="留言板" href="javascript:void(0)">留言板&nbsp;&nbsp;<span
+                            id="newMessageCount" class="badge badge-danger" style="display:inline">0</span></a></li>
                 </ul>
             </dd>
         </dl>
@@ -149,6 +152,7 @@
 
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/admin/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="/admin/js/index.js"></script>
 <script type="text/javascript">
     $(function () {
         /*$("#min_title_list li").contextMenu('Huiadminmenu', {
@@ -213,7 +217,6 @@
     function member_add(title, url, w, h) {
         layer_show(title, url, w, h);
     }
-
 
 
 </script>

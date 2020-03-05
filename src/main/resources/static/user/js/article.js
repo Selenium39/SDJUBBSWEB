@@ -56,6 +56,33 @@ function initArticle() {
                             $("#comment-report-" + index).attr("style", "visibility:hidden");
                             $("#comment-reply-" + index).attr("style", "visibility:hidden");
                         });
+                        $("#comment-report-" + index).click(function () {
+                            if (name == null) {//用户没有登录
+                                alert("您尚未登录,请登录后再进行操作");
+                                return;
+                            }
+                            //alert("index: "+index+"commentId: "+comment.id);
+                            //举报评论
+                            var flag = confirm("确定举报评论: " + comment.content + "?");
+                            if (flag == true) {
+                                $.ajax({
+                                    url: URL + '/api/comment/' + comment.id,
+                                    type: 'PUT',
+                                    data: {
+                                        name: '' + name,
+                                        sessionId: '' + $.cookie(name),
+                                        "status": 1,
+                                    },
+                                    xhrFields: {
+                                        withCredentials: true
+                                    },
+                                    success: function (result) {
+                                        alert("举报完成，正在审核...");
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        });
                         $.ajax({
                             url: URL + '/api/comment/' + comment.id,
                             type: 'GET',

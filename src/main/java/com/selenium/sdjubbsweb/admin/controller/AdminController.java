@@ -71,4 +71,9 @@ public class AdminController {
     public String showMessages() {
         return AdminPage.ADMIN_PAGE_FEATURE_MESSAGE;
     }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_COMMENT)
+    public String showComments() {
+        return AdminPage.ADMIN_PAGE_COMMENT;
+    }
 }

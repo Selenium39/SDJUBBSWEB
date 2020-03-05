@@ -13,12 +13,12 @@ function paperSetting() {
         stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 2, 5]}// 制定列不参与排序
+            {"orderable": false, "aTargets": [0, 2, 8]}// 制定列不参与排序
         ],
         serverSide: true,//启用服务器端分页
         ajax: function (data, callback, settings) {
             $.ajax({
-                url: URL + '/api/admin/feature/message',
+                url: URL + '/api/admin/comment',
                 type: 'GET',
                 data: {
                     name: '' + name,
@@ -60,15 +60,18 @@ function paperSetting() {
             },
             {"data": "id"},
             {"data": "content"},
-            {"data": "time"},
+            {"data": "createTime"},
+            {"data": "articleId"},
+            {"data": "userId"},
+            {"data": "userName"},
             {
                 "data": "status",
                 render: function (data, type, row, meta) {
                     var content = "";
                     if (data == 0) {
-                        content = "<td><span class=\"label label-danger radius\">未读</span></td>"
+                        content = "<td><span class=\"label label-success radius\">正常</span></td>"
                     } else {
-                        content = "<td><span class=\"label label-success radius\">已读</span></td>"
+                        content = "<td><span class=\"label label-danger radius\">举报</span></td>"
                     }
                     return content;
                 }
@@ -87,16 +90,16 @@ function paperSetting() {
 function paperEvent() {
     var table = $('.table-sort').DataTable();
 
-    //已读和未读留言
+    //评论状态
     $('.table-sort').on('click', 'a#unuse', function () {
         console.log(data);
         //行数据
         var data = table.row($(this).parents('tr')).data();
         var td_status = $(this).parent('td').prev();
         if (data.status == 0) {
-            layer.confirm('已读留言: ' + data.content + '?', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('举报评论: ' + data.content + '?', {icon: 3, title: '提示'}, function (index) {
                 $.ajax({
-                    url: URL + '/api/admin/feature/message/' + data.id,
+                    url: URL + '/api/admin/comment/' + data.id,
                     type: 'PUT',
                     data: {
                         name: '' + name,
@@ -107,8 +110,28 @@ function paperEvent() {
                         withCredentials: true
                     },
                     success: function (result) {
-                        td_status.empty().append("<span class=\"label label-success radius\">已读</span>");
+                        td_status.empty().append("<span class=\"label label-danger radius\">举报</span>");
                         data.status = 1;
+                    }
+                });
+                layer.close(index);
+            })
+        }else{
+            layer.confirm('恢复评论: ' + data.content + '?', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: URL + '/api/admin/comment/' + data.id,
+                    type: 'PUT',
+                    data: {
+                        name: '' + name,
+                        sessionId: '' + sessionId,
+                        "status": 0,
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        td_status.empty().append("<span class=\"label label-success radius\">正常</span>");
+                        data.status = 0;
                     }
                 });
                 layer.close(index);
@@ -116,12 +139,12 @@ function paperEvent() {
         }
     });
 
-    //删除留言
+    //删除评论
     $('.table-sort').on('click', 'a#delete', function () {
         var data = table.row($(this).parents('tr')).data();
-        layer.alert("确定删除留言 " + data.content + "?", {icon: 3, title: '提示'}, function (index) {
+        layer.alert("确定删除评论 " + data.content + "?", {icon: 3, title: '提示'}, function (index) {
             $.ajax({
-                url: URL + '/api/admin/feature/message/' + data.id,
+                url: URL + '/api/admin/comment/' + data.id,
                 type: 'DELETE',
                 data: {
                     name: '' + name,
@@ -149,14 +172,14 @@ function paperEvent() {
         ids = ids.substring(0, ids.length - 1);
         var result = confirm("确定进行批量删除?");
         if (result == true) {
-            deleteMessageByBatch(ids);
+            deleteCommentByBatch(ids);
         }
     });
 }
 
-function deleteMessageByBatch(ids) {
+function deleteCommentByBatch(ids) {
     $.ajax({
-        url: URL + '/api/admin/feature/messages',
+        url: URL + '/api/admin/comments',
         type: 'DELETE',
         data: {
             name: '' + name,
