@@ -117,4 +117,9 @@ public class UserController {
         return UserPage.USER_PAGE_MESSAGE;
     }
 
+    @GetMapping(UserApi.USER_FEATURE_QR)
+    public String showFeatureQr() {
+        return UserPage.USER_PAGE_QR;
+    }
+
 }

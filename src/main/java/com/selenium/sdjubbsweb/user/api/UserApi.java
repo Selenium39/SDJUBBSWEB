@@ -13,4 +13,5 @@ public class UserApi {
     public static final String USER_PROFILE = "/profile";
     public static final String USER_FEATURE = "/feature";
     public static final String USER_FEATURE_MESSAGE = "/feature/message";
+    public static final String USER_FEATURE_QR = "/feature/qr";
 }

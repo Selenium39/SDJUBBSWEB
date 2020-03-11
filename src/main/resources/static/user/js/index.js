@@ -140,10 +140,10 @@ function initFeature() {
                         var feature = features[i];
                         $('#f-' + i + '-back-image').css("background", "url(" + URL + feature.backImagePath + ") no-repeat");
                         $('#f-' + i + '-back-image').attr("href", "/user/feature/" + feature.path);
+                        $('#f-' + i + '-head-image').attr("href", "/user/feature/" + feature.path);
                         $("#f-" + i + "-front-image").attr("src", URL + feature.frontImagePath);
                         $("#f-" + i + "-name").empty().append(feature.featureName);
                         $("#f-" + i + "-info").empty().append(feature.info);
-
                     }
                     break;
             }
