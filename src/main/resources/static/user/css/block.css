@@ -277,6 +277,19 @@
     background-size: 15px 15px;
     z-index: 30;
     cursor: pointer; }
+
+#board-head #add-fav .stared {
+    height: 15px;
+    width: 15px;
+    margin-right: 6px;
+    margin-bottom: 2px;
+    background-image: url("../images/stared.png");
+    background-size: 15px 15px;
+    z-index: 30;
+    cursor: pointer; }
+
+
+
 #board-head #add-fav .star:hover, #board-head #add-fav .star.active {
     background-image: url("../images/stared.png"); }
 #board-head #add-fav .fav-text {

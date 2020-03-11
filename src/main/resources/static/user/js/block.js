@@ -3,6 +3,8 @@ var blockId = window.location.href.toString().split("#")[0].split("/block/")[1].
 var pageId = getQueryVariable("pn")
 $(function () {
     initBlock();
+    initCollectNum();
+    initUserCollect();
     eventHandler();
 });
 
@@ -18,7 +20,7 @@ function initBlock() {
         $("#l-login").show();
         $("#l-no-login").hide();
     }
-    if (isInteger(blockId)&&isInteger(pageId)) {
+    if (isInteger(blockId) && isInteger(pageId)) {
         $.ajax({
             url: URL + '/api/block/' + blockId + "?pn=" + pageId,
             type: 'GET',
@@ -30,24 +32,23 @@ function initBlock() {
                 var articles = result.data.pageInfo.list;
                 $("#nav-block-name").empty().append(block.title);
                 $("#block-name").empty().append(block.title);
-                $("#block-save-num").empty().append(block.saveNum);
                 $("#block-article-num").empty().append(block.articleNum);
                 $.each(articles, function (index, article) {
                     createArticleView(index, article);
                 });
-                if(pageId<=0||pageId>result.data.pageInfo.pages){
+                if (pageId <= 0 || pageId > result.data.pageInfo.pages) {
                     //todo 页面不存在
                     alert("页面不存在");
-                    window.location.href="/user/block/"+blockId+"?pn=1";
+                    window.location.href = "/user/block/" + blockId + "?pn=1";
                 }
                 createNavigatePage(result.data.pageInfo);
-                $("#jumpButton").click(function(){
-                    jumpPn=$("#p-input").val();
-                    if(jumpPn<=0||jumpPn>result.data.pageInfo.pages){
+                $("#jumpButton").click(function () {
+                    jumpPn = $("#p-input").val();
+                    if (jumpPn <= 0 || jumpPn > result.data.pageInfo.pages) {
                         alert("页面不存在");
-                        window.location.href="/user/block/"+blockId+"?pn=1";
-                    }else{
-                        window.location.href="/user/block/"+blockId+"?pn="+jumpPn;
+                        window.location.href = "/user/block/" + blockId + "?pn=1";
+                    } else {
+                        window.location.href = "/user/block/" + blockId + "?pn=" + jumpPn;
                     }
                 });
             }
@@ -58,9 +59,69 @@ function initBlock() {
     }
 }
 
+function initCollectNum() {
+    $.ajax({
+        url: URL + "/api/collect/num",
+        type: "get",
+        xhrFields: {
+            withCredentials: true
+        },
+        data: {
+            blockId: blockId,
+
+        },
+        success: function (result) {
+            var status = result.code;
+            var collectNum = result.data.collectNum;
+            switch (status) {
+                case 200:
+                    $("#block-save-num").empty().append(collectNum);
+                    break;
+            }
+        }
+    });
+}
+
+function initUserCollect() {
+    var name = $.cookie('name');
+    var sessionId = $.cookie(name);
+    if (name == null) {
+        return;
+    }
+    $.ajax({
+        url: URL + "/api/collect/user",
+        type: "get",
+        xhrFields: {
+            withCredentials: true
+        },
+        data: {
+            name: name,
+            sessionId: sessionId,
+            blockId: blockId,
+
+        },
+        success: function (result) {
+            var status = result.code;
+            var collect = result.data.collect;
+            switch (status) {
+                case 200:
+                    if (collect == "0") {
+                        $("#bid").attr("collect", collect);
+                        $("#bid").removeClass("stared").addClass("star");
+                    } else {
+                        $("#bid").attr("collect", collect);
+                        $("#bid").removeClass("star").addClass("stared");
+                    }
+                    break;
+            }
+        }
+    });
+
+}
+
 function createArticleView(index, article) {
     A_div = $("<div></div>").addClass("list-item");
-    A_a = $("<a></a>").addClass("link").attr("href", "/user/article/"+article.id);
+    A_a = $("<a></a>").addClass("link").attr("href", "/user/article/" + article.id);
     A_div1 = $("<div></div>").addClass("id l");
     if (article.priority == 1) {
         A_div2 = $("<div></div>").addClass("pin").empty().append("置顶").appendTo(A_div1);
@@ -82,30 +143,75 @@ function createArticleView(index, article) {
     A_div.append(A_a).append(A_div1).append(A_div3).append(A_div4).append(A_div6).append(A_div7);
 }
 
-function createNavigatePage(pageInfo){
-       if(!isInteger(pageId)){
-           alert("页面不存在");
-           window.location.href="/user/block/"+blockId+"?pn=1";
-       }
-       $("#p-total").empty().append("/ "+pageInfo.pages);
-       $("#p-input").attr({"min":1,"max":pageInfo.pages});
-       $("#a-nav-index").attr("href","/user/block/"+blockId+"?pn=1");
-       $("#a-nav-end").attr("href","/user/block/"+blockId+"?pn="+pageInfo.pages);
-       var pns=pageInfo.navigatepageNums;
-       for(let i=0;i<10;i++){
-           $("#a-nav-"+i).empty().attr("href","/user/block/"+blockId+"?pn="+pns[i]);
-           $("#p-nav-"+i).append(pns[i]);
-           if(pageId==pns[i]){
-               $("#p-nav-"+i).addClass("active")
-           }
-       }
-       $("#a-nav-next").empty().attr("href","/user/block/"+blockId+"?pn="+pageInfo.nextPage);
+function createNavigatePage(pageInfo) {
+    if (!isInteger(pageId)) {
+        alert("页面不存在");
+        window.location.href = "/user/block/" + blockId + "?pn=1";
+    }
+    $("#p-total").empty().append("/ " + pageInfo.pages);
+    $("#p-input").attr({"min": 1, "max": pageInfo.pages});
+    $("#a-nav-index").attr("href", "/user/block/" + blockId + "?pn=1");
+    $("#a-nav-end").attr("href", "/user/block/" + blockId + "?pn=" + pageInfo.pages);
+    var pns = pageInfo.navigatepageNums;
+    for (let i = 0; i < 10; i++) {
+        $("#a-nav-" + i).empty().attr("href", "/user/block/" + blockId + "?pn=" + pns[i]);
+        $("#p-nav-" + i).append(pns[i]);
+        if (pageId == pns[i]) {
+            $("#p-nav-" + i).addClass("active")
+        }
+    }
+    $("#a-nav-next").empty().attr("href", "/user/block/" + blockId + "?pn=" + pageInfo.nextPage);
 }
 
 
 function eventHandler() {
     $("#l-logout").click(function () {
         logout();
+    });
+    //收藏
+    $("#bid").click(function () {
+        var name = $.cookie('name');
+        var sessionId = $.cookie(name);
+        var collect = $("#bid").attr("collect");
+        if (name == null || sessionId == null) {
+            alert("尚未登录");
+            window.location.href = "/user/index";
+            return;
+        }
+        collection(name, sessionId, collect);
+    });
+}
+
+function collection(name, sessionId, collect) {
+    $.ajax({
+        url: URL + "/api/collect",
+        type: "post",
+        xhrFields: {
+            withCredentials: true
+        },
+        data: {
+            name: name,
+            sessionId: sessionId,
+            blockId: blockId,
+            collect: collect == "0" ? "1" : "0"
+        },
+        success: function (result) {
+            var status = result.code;
+            var collect = result.data.collect;
+            switch (status) {
+                case 200:
+                    console.log(collect);
+                    if (collect == "0") {
+                        $("#bid").attr("collect", collect);
+                        $("#bid").removeClass("stared").addClass("star");
+                    } else {
+                        $("#bid").attr("collect", collect);
+                        $("#bid").removeClass("star").addClass("stared");
+                    }
+                    initCollectNum();
+                    break;
+            }
+        }
     });
 }
 
@@ -114,7 +220,7 @@ function logout() {
     var name = $.cookie('name');
     var sessionId = $.cookie(name);
     if (name == null || sessionId == null) {
-        alert(name + "尚未登录");
+        alert("尚未登录");
         window.location.href = "/user/index";
         return;
     }
@@ -149,7 +255,7 @@ function logout() {
             $.removeCookie('JSESSIONID', {path: '/'});
             window.location.href = "/user/index";
         }
-    })
+    });
 }
 
 

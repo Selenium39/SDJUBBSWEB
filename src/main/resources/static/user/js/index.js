@@ -90,7 +90,7 @@ function initBlock() {
                         $('#b-' + i + '-pic').attr('src', URL + block.blockPicture);
                         $('#b-' + i + '-title').val(block.title);
                         $('#b-' + i + '-author').val(block.authorName);
-                        $('#b-' + i + '-info').val(block.articleNum + '帖子' + ' . ' + block.saveNum + '人收藏');
+                        $('#b-' + i + '-info').empty().append(block.articleNum + '帖子' + ' . ' + block.saveNum + '人收藏');
                         $('#b-' + i + '-article').attr('href', '/user/block/' + block.id + "?pn=1");
                     }
                     break;
@@ -139,7 +139,7 @@ function initFeature() {
                     for (let i = 0; i < 5; i++) {
                         var feature = features[i];
                         $('#f-' + i + '-back-image').css("background", "url(" + URL + feature.backImagePath + ") no-repeat");
-                        $('#f-' + i + '-back-image').attr("href","/user/feature/"+feature.path);
+                        $('#f-' + i + '-back-image').attr("href", "/user/feature/" + feature.path);
                         $("#f-" + i + "-front-image").attr("src", URL + feature.frontImagePath);
                         $("#f-" + i + "-name").empty().append(feature.featureName);
                         $("#f-" + i + "-info").empty().append(feature.info);

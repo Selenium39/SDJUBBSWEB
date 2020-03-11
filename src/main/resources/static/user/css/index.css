@@ -367,6 +367,22 @@ body {
     background-position: -542px -293px;
 }
 
+.introduce{
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
+    font-size:18px;
+    letter-spacing:1px;
+    line-height:23px;
+    text-indent:2em;
+}
+
+.myself{
+    margin-left:120px;
+    margin-top:50px;
+    font-size:20px;
+}
+
 .slider-next {
     right: 8px;
     background-position: -582px -243px;

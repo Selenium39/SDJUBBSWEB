@@ -47,7 +47,7 @@ function createBlockView(index,block){
     B_p=$('<p></p>').attr('id','b-'+index+'-info').append(block.articleNum+'帖子 · '+block.saveNum+'人收藏');
     B_p_1=$('<p></p>');
     B_a_2=$('<a></a>').addClass('author').attr({'id':'b-'+index+'-author','href':'#'}).append(block.authorName);
-    B_div_1=$("<div></div>").addClass('waterfall-hover').append($('<span></span>').addClass('mask')).append($('<a></a>').addClass('btn-collect').attr('href','#').append('收藏'));
+    B_div_1=$("<div></div>").addClass('waterfall-hover').append($('<span></span>').addClass('mask'));
     B_p_1.append('by ').append(B_a_2);
     B_div.append(B_a_1).append(B_p).append(B_p_1);
     B_img.appendTo(B_a);
