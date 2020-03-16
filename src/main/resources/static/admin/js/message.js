@@ -9,7 +9,9 @@ $(function () {
 function paperSetting() {
     $('.table-sort').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
-        "bStateSave": false,//状态保存
+        "bStateSave": true,//状态保存
+        "searching":false,//搜索框
+        "bProcessing": true,
         stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示

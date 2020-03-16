@@ -2,6 +2,7 @@ var URL = 'http://localhost:8080';
 var articleId = window.location.href.toString().split("#")[0].split("/article/")[1].split("?")[0];
 $(function () {
     initArticle();
+    paperEvent();
 });
 
 function initArticle() {
@@ -264,6 +265,38 @@ function createReplyView(comment_index, index, reply) {
     $("#comment-" + comment_index).append(C_div);
 }
 
+
+function paperEvent(){
+    $("#find").click(function(){
+        var content=$("#a-content").text();
+        var keyword=$("#ky").val();
+        if(content.indexOf(keyword)<0){//没有找到
+            alert("文章内没找到您查找的值，换个关键字试试吧");
+            window.location.reload();
+        }else{
+            find();
+        }
+        return false;
+    });
+}
+var old_content=null;
+var count =1;
+function find(){
+    if(old_content==null){
+        var content=$("#a-content").html();
+        if(count==1){
+            old_content=content;
+        }
+    }else{
+        content=old_content;
+    }
+    var keyword=$("#ky").val();
+    re = new RegExp(keyword+"","g"); //定义正则表达式
+    //第一个参数是正则表达式。
+    var newstr=content.replace(re,"<b style='color:red'>"+keyword+"</b>");
+    $("#a-content").empty();
+    $("#a-content").append(newstr);
+}
 
 
 

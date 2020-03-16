@@ -88,8 +88,8 @@ function initBlock() {
                     for (let i = 0; i < 5; i++) {
                         var block = blocks[i];
                         $('#b-' + i + '-pic').attr('src', URL + block.blockPicture);
-                        $('#b-' + i + '-title').val(block.title);
-                        $('#b-' + i + '-author').val(block.authorName);
+                        $('#b-' + i + '-title').empty().append(block.title);
+                        $('#b-' + i + '-author').empty().append(block.authorName);
                         $('#b-' + i + '-info').empty().append(block.articleNum + '帖子' + ' . ' + block.saveNum + '人收藏');
                         $('#b-' + i + '-article').attr('href', '/user/block/' + block.id + "?pn=1");
                     }

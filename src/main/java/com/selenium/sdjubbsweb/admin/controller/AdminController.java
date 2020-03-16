@@ -76,4 +76,14 @@ public class AdminController {
     public String showComments() {
         return AdminPage.ADMIN_PAGE_COMMENT;
     }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_BLOCK)
+    public String showBlocks() {
+        return AdminPage.ADMIN_PAGE_BLOCKS;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_FEATURE_QR)
+    public String showQr() {
+        return AdminPage.ADMIN_PAGE_FEATURE_QR;
+    }
 }

@@ -38,7 +38,7 @@ function paperEvent() {
 
 function showBlock() {
     $.ajax({
-        url: URL + '/api/admin/block/',
+        url: URL + '/api/admin/block/all/',
         type: 'GET',
         xhrFields: {
             withCredentials: true

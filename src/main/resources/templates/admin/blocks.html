@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.9/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <title>用户管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 板块管理 <span
+        class="c-gray en">&gt;</span> 板块列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+                                              href="javascript:location.replace(location.href);" title="刷新"><i
+        class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
+        <a id="batchDelete" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+        <a id="addBlock" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加板块</a></span>
+        <span class="r">共有数据：<strong id="totalCount">0</strong> 条</span>
+    </div>
+    <div class="mt-20">
+        <table width="100%" class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox"></th>
+                <th width="50">ID</th>
+                <th width="100">板块名</th>
+                <th width="50">版主ID</th>
+                <th width="100">版主名</th>
+                <th width="140">板块封面</th>
+                <th width="50">文章数</th>
+                <th width="50">收藏数</th>
+                <th width="200">创建时间</th>
+                <th width="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!--新增板块表单-->
+<div id="add_block_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">新增板块</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <form class="form form-horizontal" id="add_block_form" enctype="multipart/form-data">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">板块名:</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input placeholder="(必需)" type="text" class="input-text radius" autocomplete="off"
+                                   name="title">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">板块封面:</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <img id="add_block_picture" style="width:50px;height:50px;border-radius:50%" src=""/>
+                            <span class="btn-upload form-group formControls" style="margin-top: 10px;">
+                                <a style="margin-left:10px;" class="btn btn-secondary radius">上传封面</a>
+                                <input type="file" id="add_block_picture_file" name="file" class="input-file">
+                             </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_add_block" class="btn btn-primary">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改用户信息表单-->
+<div id="update_block_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-header">
+                <h3 class="modal-title">板块信息</h3>
+                <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+            </div>
+            <div class="modal-body">
+                <form class="form form-horizontal" id="update_block_form" enctype="multipart/form-data">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">id：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <p class="input-text radius" id="id">0</p>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">板块名:</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="text" class="input-text radius" autocomplete="off" name="username"
+                                   id="title">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-3">封面:</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <img id="block_picture" style="width:50px;height:50px;border-radius:50%" src=""/>
+                            <span class="btn-upload form-group formControls" style="margin-top: 10px;">
+                                <a style="margin-left:10px;" class="btn btn-secondary radius">更换封面</a>
+                                <input type="file" id="block_picture_file" name="file" class="input-file">
+                             </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_update_block" class="btn btn-primary">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/common/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/common/js/layer.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script src="/common/js/md5.js"></script>
+<script src="/common/js/encryption.js"></script>
+<script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/admin/js/blocks.js"></script>
+</body>
+</html>

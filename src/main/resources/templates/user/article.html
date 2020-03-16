@@ -61,20 +61,19 @@
                 </div>
             </header>
             <article class="article-content" id="a-content">
-
-                <div class="title" style="margin-top: 50px;">
-                    <h3>分享</h3>
-                </div>
-                <div style="margin-top: 15px;" class="bdsharebuttonbox">
-                    <a href="#" class="bds_more" data-cmd="more"></a>
-                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-                    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
-                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-                    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
-                    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-                </div>
             </article>
+            <div class="title" style="margin-top: 50px;">
+                <h3>分享</h3>
+            </div>
+            <div style="margin-top: 15px;" class="bdsharebuttonbox">
+                <a href="#" class="bds_more" data-cmd="more"></a>
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+                <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+            </div>
             <div class="title" style="margin-top: 15px;" id="comment">
                 <h3>评论</h3>
             </div>
@@ -107,12 +106,12 @@
     <aside class="sidebar">
         <div class="fixed">
             <div class="widget widget_search">
-                <form class="navbar-form" action="/Search" method="post">
+                <form class="navbar-form" action="#">
                     <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"
+                        <input id="ky" type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"
                                maxlength="15" autocomplete="off">
                         <span class="input-group-btn">
-		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		<button id="find" class="btn btn-default btn-search" name="search" type="submit">搜索</button>
 		</span></div>
                 </form>
             </div>
@@ -121,57 +120,16 @@
 </section>
 <footer class="footer">
     <div class="footer-container">
+        <div class="fopter-copyright">
+            <p>©德泰1613万涛 版权所有。</p>
+        </div>
         <div class="footer-link">
-            <div class="footer-link__item">
-                <h4 class="footer-title">关于我们</h4>
-                <ul class="footer-list">
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                    <li class="item"><a href="#">加入我们</a></li>
-                    <li class="item"><a href="#">联系我们</a></li>
-                    <li class="item"><a href="#">标签集</a></li>
-                    <li class="item"><a href="#">商务合作</a></li>
-                    <li class="item"><a href="#">免责声明</a></li>
-                </ul>
-            </div>
-            <div class="footer-link__item">
-                <h4 class="footer-title">手机应用</h4>
-                <ul class="footer-list">
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                    <li class="item"><a href="#">加入我们</a></li>
-                </ul>
-            </div>
-            <div class="footer-link__item">
-                <div class="footer-orcode"><img src="/user/images/app_qrcode.png" alt="#"></div>
-                <div class="orcode-text">
-                    <p>扫描二维码</p>
-                    <p>下载tang手机客户端</p>
-                </div>
-            </div>
-            <div class="footer-link__item">
-                <h4 class="footer-title">关注我们</h4>
-                <ul class="footer-list">
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                </ul>
-            </div>
             <div class="footer-link__item">
                 <h4 class="footer-title">友情链接</h4>
                 <ul class="footer-list">
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
-                    <li class="item"><a href="#">关于我们</a></li>
-                    <li class="item"><a href="#">帮助中心</a></li>
+                    <li class="item"><a target="_blank" href="https://www.sdju.edu.cn">上海电机学院官网</a></li>
                 </ul>
             </div>
-        </div>
-        <div class="fopter-copyright">
-            <p>©2017 ****** 版权所有。</p>
         </div>
     </div>
 </footer>
