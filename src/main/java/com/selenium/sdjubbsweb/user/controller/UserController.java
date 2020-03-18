@@ -88,6 +88,16 @@ public class UserController {
 
     /**
      * method: get
+     * url: /block/search
+     * description: 查找文章
+     */
+    @GetMapping(UserApi.USER_SEARCH)
+    public String searchArticle() {
+        return UserPage.USER_PAGE_ARTICLE_SEARCH;
+    }
+
+    /**
+     * method: get
      * url: /article
      * description: 查看文章
      */

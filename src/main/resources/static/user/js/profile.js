@@ -1,5 +1,6 @@
 var URL = 'http://localhost:8080';
 var name = $.cookie('name');
+var user = null;
 var sessionId = $.cookie(name);
 $(function () {
     initProfile();
@@ -24,6 +25,12 @@ function eventHandler() {
     $("#l-logout").click(function () {
         logout();
     });
+    $("#u-update").click(function () {
+        showUpdateUserModal();
+    });
+    $("#btn_update_user").click(function () {
+        updateUser();
+    });
 }
 
 function showProfile() {
@@ -42,7 +49,7 @@ function showProfile() {
             switch (status) {
                 case 200:
                     //console.log(result.data.user);
-                    var user = result.data.user;
+                    user = result.data.user;
                     createProfileView(user);
                     break;
 
@@ -56,10 +63,46 @@ function createProfileView(user) {
     $("#p-id").attr("value", user.id);
     $("#p-username").attr("value", user.username);
     $("#p-age").attr("value", user.age);
-    $("#p-gender").attr("value", user.gender);
+    if (user.gender == 0) {
+        $("#p-gender").attr("value", '男');
+    } else if (user.gender == 1) {
+        $("#p-gender").attr("value", '女');
+    } else {
+        $("#p-gender").attr("value", '未知');
+    }
     $("#p-email").attr("value", user.email);
     $("#p-phone").attr("value", user.phone);
     $("#p-head-picture").attr("src", URL + user.headPicture);
+}
+
+function createProfileModalView(user) {
+    console.log(user);
+    $("#u-id").attr("value", user.id);
+    $("#u-username").attr("value", user.username);
+    $("#u-age").attr("value", user.age);
+    if (user.gender == 0) {
+        $("#u-gender-0").attr("checked", "checked");
+    } else if (user.gender == 1) {
+        $("#u-gender-1").attr("checked", "checked");
+    } else {
+        $("#u-gender-2").attr("checked", "checked");
+    }
+    $("#u-email").attr("value", user.email);
+    $("#u-phone").attr("value", user.phone);
+    $("#u-head-picture").attr("src", URL + user.headPicture);
+    //预览上传的头像
+    $("#head_picture_file").change(function (e) {
+        var reader = new FileReader();
+        file = e.target.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("上传的文件格式不对,请重新上传...");
+            return false;
+        }
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $("#u-head-picture").attr("src", "" + this.result + "");
+        };
+    });
 }
 
 
@@ -140,3 +183,32 @@ function wallterFall() {
         }
     });
 };
+
+function showUpdateUserModal() {
+    $("#update_user_modal").modal("show");
+    createProfileModalView(user);
+}
+
+function updateUser() {
+    console.log("update user");
+    var id = $("#u-id").val();
+    console.log("id: " + id);
+    var formData = new FormData($("#update_user_form")[0]);
+    formData.append("name", name);
+    formData.append("sessionId", sessionId)
+    $.ajax({
+        url: URL + '/api/user/' + id,
+        type: 'PUT',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            $("#update_user_modal").modal("hide");
+            window.location.reload();
+        }
+    });
+}

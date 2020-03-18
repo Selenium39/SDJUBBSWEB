@@ -8,6 +8,7 @@ public class UserApi {
     public static final String USER_REGISTER = "/register";
     public static final String USER_BLOCKS = "/block";
     public static final String USER_BLOCK = "/block/{id}";
+    public static final String USER_SEARCH="/search/block/{id}";
     public static final String USER_ARTICLE = "/article/{id}";
     public static final String USER_MD = "/md";
     public static final String USER_PROFILE = "/profile";

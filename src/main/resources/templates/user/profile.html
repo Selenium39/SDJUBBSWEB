@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>上海电机学院BBS-电机人自己的BBS</title>
     <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/common/css/bootstrap.min.css">
     <link rel="stylesheet" href="/user/css/reset.css">
     <link rel="stylesheet" href="/user/css/index.css">
     <link rel="stylesheet" type="text/css" href="/user/css/font-awesome.min.css">
@@ -54,7 +55,11 @@
             </ol>
         </div>
         <div class="s-container">
-            <div class="s-row"><p>id:</p><input id="p-id" type="text" readonly/></div>
+            <div class="s-row">
+                <p>id:</p><input id="p-id" type="text" readonly/>
+                <a id="u-update" style="margin-left:400px;margin-top:-10px;" class="btn btn-danger btn-sm"
+                   href="#">修改</a>
+            </div>
             <div class="s-row"><p>用户名:</p><input id="p-username" type="text" readonly/></div>
             <div class="s-row"><p>年龄:</p><input id="p-age" type="text" readonly/></div>
             <div class="s-row"><p>性别:</p><input id="p-gender" type="text" readonly/></div>
@@ -79,9 +84,66 @@
                     <li class="item"><a target="_blank" href="https://www.sdju.edu.cn">上海电机学院官网</a></li>
                 </ul>
             </div>
+            <div class="footer-link__item">
+                <h4 class="footer-title">联系我</h4>
+                <ul class="footer-list">
+                    <li class="item"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=895484122&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:895484122:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </footer>
+
+<div id="update_user_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content radius">
+            <div class="modal-body">
+                <form id="update_user_form" enctype="multipart/form-data">
+                    <div class="u-container">
+                        <div class="u-row"><p style="font-size:20px;">用户信息</p></div>
+                        <div class="u-row">
+                            <p>id:</p><input name="id" id="u-id" type="text" readonly/>
+                        </div>
+                        <div class="u-row"><p>用户名:</p><input name="username" id="u-username" type="text" value="default"/></div>
+                        <div class="u-row"><p>年龄:</p><input name="age" id="u-age" type="number" value="0" min="0" max="100"/></div>
+                        <div class="u-row">
+                            <p>性别:</p>
+                            <div class="u-row-radio">
+                                <div>
+                                    <p>男</p>
+                                    <input id="u-gender-0" name="gender" type="radio" value="0"/>
+                                </div>
+                                <div>
+                                    <p>女</p>
+                                    <input id="u-gender-1" name="gender" type="radio" value="1"/>
+                                </div>
+                                <div>
+                                    <p>未知</p>
+                                    <input id="u-gender-2" name="gender" type="radio" value="2"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-row"><p>邮箱:</p><input name="email" id="u-email" type="email"/></div>
+                        <div class="u-row"><p>手机号:</p><input name="phone" id="u-phone" type="text"/></div>
+                        <div class="u-row"><p>头像:</p><img id="u-head-picture"
+                                                          style="width:50px;height:50px;border-radius:50%"
+                                                          src=""/>
+                            <span class="btn-upload" style="margin-top: 10px;">
+                                <a style="margin-left:10px;" class="btn btn-secondary radius">更换头像</a>
+                                <input type="file" id="head_picture_file" name="file" class="input-file">
+                             </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_update_user" class="btn btn-success">确定</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/common/js/jquery-3.1.1.js"></script>
 <script src="/common/js/jquery.cookie.js"></script>

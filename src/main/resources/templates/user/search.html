@@ -54,7 +54,9 @@
                 <li> >></li>
                 <li><a href="/user/block">版块</a></li>
                 <li> >></li>
-                <li class="active"><a id="nav-block-name" href="#"></a></li>
+                <li><a id="nav-block-name" href="#"></a></li>
+                <li> >></li>
+                <li class="active"><a href="#">查找</a></li>
             </ol>
         </div>
         <div class="main-cont main-block">
@@ -65,21 +67,16 @@
                             <span id="block-name" class="title-text eng"></span>
                         </div>
                         <div id="stat" class="gray l">
-                            帖数：<span id="block-article-num" class="num"></span>
+                            查找内容：<span id="search-content" class="num"></span>
                         </div>
-                    </div>
-                    <div id="add-fav" class="gray">
-                        <a id="bid" class="star" collect="0"></a>
-                        <span id="fav-text" class="fav-text">收藏本版</span> (<span id="block-save-num" class="num">0</span>)
-                    </div>
-
-                    <div id="tab">
-                        <div class="tab-button active"><a href="#" class="gray link">帖子</a></div>
-                    </div>
-                    <div class="search-box bdwm-search-box">
-                        <input id="keyword" class="search-ipt" type="text" placeholder="版面内搜索"
-                               autocomplete="on">
-                        <img id="img-search" class="search-btn-page" src="/user/images/search.png">
+                        <div id="tab">
+                            <div class="tab-button active"><a href="#" class="gray link">查找结果</a></div>
+                        </div>
+                        <div class="search-box bdwm-search-box">
+                            <input id="keyword" class="search-ipt" type="text" placeholder="版面内搜索"
+                                   autocomplete="on">
+                            <img id="img-search" class="search-btn-page" src="/user/images/search.png">
+                        </div>
                     </div>
                 </div>
                 <div id="board-body">
@@ -141,7 +138,10 @@
             <div class="footer-link__item">
                 <h4 class="footer-title">联系我</h4>
                 <ul class="footer-list">
-                    <li class="item"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=895484122&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:895484122:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+                    <li class="item"><a target="_blank"
+                                        href="http://wpa.qq.com/msgrd?v=3&uin=895484122&site=qq&menu=yes"><img
+                            border="0" src="http://wpa.qq.com/pa?p=2:895484122:52" alt="点击这里给我发消息"
+                            title="点击这里给我发消息"/></a></li>
                 </ul>
             </div>
         </div>
@@ -151,6 +151,6 @@
 <script src="/common/js/jquery.cookie.js"></script>
 <script src="/common/js/bootstrap.min.js"></script>
 <script src="/common/js/util.js"></script>
-<script src="/user/js/block.js"></script>
+<script src="/user/js/search.js"></script>
 </body>
 </html>

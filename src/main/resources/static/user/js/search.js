@@ -1,14 +1,14 @@
 var URL = 'http://localhost:8080';
 var blockId = window.location.href.toString().split("#")[0].split("/block/")[1].split("?")[0];
 var pageId = getQueryVariable("pn")
+var keyword = getQueryVariable("search");
 $(function () {
-    initBlock();
-    initCollectNum();
-    initUserCollect();
+    console.log("blockId: " + blockId + "pageId: " + pageId + "keyword: " + keyword);
+    initSearch();
     eventHandler();
 });
 
-function initBlock() {
+function initSearch() {
     $('#slider').slider();
     wallterFall();
     var name = $.cookie('name');
@@ -29,26 +29,35 @@ function initBlock() {
             },
             success: function (result) {
                 var block = result.data.block;
-                var articles = result.data.pageInfo.list;
                 $("#nav-block-name").empty().append(block.title);
+                $("#nav-block-name").attr("href", "/user/block/" + block.id + "?pn=1");
+                $("#search-content").empty().append(decodeURI(keyword));
                 $("#block-name").empty().append(block.title);
-                $("#block-article-num").empty().append(block.articleNum);
-                $.each(articles, function (index, article) {
-                    createArticleView(index, article);
-                });
-                if (pageId <= 0 || pageId > result.data.pageInfo.pages) {
-                    //todo 页面不存在
-                    alert("页面不存在");
-                    window.location.href = "/user/block/" + blockId + "?pn=1";
-                }
-                createNavigatePage(result.data.pageInfo);
-                $("#jumpButton").click(function () {
-                    jumpPn = $("#p-input").val();
-                    if (jumpPn <= 0 || jumpPn > result.data.pageInfo.pages) {
-                        alert("页面不存在");
-                        window.location.href = "/user/block/" + blockId + "?pn=1";
-                    } else {
-                        window.location.href = "/user/block/" + blockId + "?pn=" + jumpPn;
+                $.ajax({
+                    url: URL + '/api/search/block/' + blockId + "?search=" + keyword + "&pn=" + pageId,
+                    type: 'GET',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function (result) {
+                        var articles = result.data.pageInfo.list;
+                        if (result.data.pageInfo.total <= 0) {
+                            alert("搜索内容为空，换个关键字试试吧!")
+                        }
+                        $.each(articles, function (index, article) {
+                            createArticleView(index, article);
+                        });
+                        createNavigatePage(result.data.pageInfo);
+                        $("#jumpButton").click(function () {
+                            jumpPn = $("#p-input").val();
+                            if (jumpPn <= 0 || jumpPn > result.data.pageInfo.pages) {
+                                alert("页面不存在");
+                                window.location.href = "/user/search/block/" + blockId + "?search=" + keyword + "&pn=1";
+                            } else {
+                                window.location.href = "/user/search/block/" + blockId + "?search=" + keyword + "&pn=" + jumpPn;
+                            }
+                        });
+
                     }
                 });
             }
@@ -59,65 +68,6 @@ function initBlock() {
     }
 }
 
-function initCollectNum() {
-    $.ajax({
-        url: URL + "/api/collect/num",
-        type: "get",
-        xhrFields: {
-            withCredentials: true
-        },
-        data: {
-            blockId: blockId,
-
-        },
-        success: function (result) {
-            var status = result.code;
-            var collectNum = result.data.collectNum;
-            switch (status) {
-                case 200:
-                    $("#block-save-num").empty().append(collectNum);
-                    break;
-            }
-        }
-    });
-}
-
-function initUserCollect() {
-    var name = $.cookie('name');
-    var sessionId = $.cookie(name);
-    if (name == null) {
-        return;
-    }
-    $.ajax({
-        url: URL + "/api/collect/user",
-        type: "get",
-        xhrFields: {
-            withCredentials: true
-        },
-        data: {
-            name: name,
-            sessionId: sessionId,
-            blockId: blockId,
-
-        },
-        success: function (result) {
-            var status = result.code;
-            var collect = result.data.collect;
-            switch (status) {
-                case 200:
-                    if (collect == "0") {
-                        $("#bid").attr("collect", collect);
-                        $("#bid").removeClass("stared").addClass("star");
-                    } else {
-                        $("#bid").attr("collect", collect);
-                        $("#bid").removeClass("star").addClass("stared");
-                    }
-                    break;
-            }
-        }
-    });
-
-}
 
 function createArticleView(index, article) {
     A_div = $("<div></div>").addClass("list-item");
@@ -150,17 +100,17 @@ function createNavigatePage(pageInfo) {
     }
     $("#p-total").empty().append("/ " + pageInfo.pages);
     $("#p-input").attr({"min": 1, "max": pageInfo.pages});
-    $("#a-nav-index").attr("href", "/user/block/" + blockId + "?pn=1");
-    $("#a-nav-end").attr("href", "/user/block/" + blockId + "?pn=" + pageInfo.pages);
+    $("#a-nav-index").attr("href", "/user/search/block/" + blockId + "?search=" + keyword + "&pn=1");
+    $("#a-nav-end").attr("href", "/user/search/block/" + blockId + "?search=" + keyword + "&pn=" + pageInfo.pages);
     var pns = pageInfo.navigatepageNums;
     for (let i = 0; i < 10; i++) {
-        $("#a-nav-" + i).empty().attr("href", "/user/block/" + blockId + "?pn=" + pns[i]);
+        $("#a-nav-" + i).empty().attr("href", "/user/search/block/" + blockId + "?search=" + keyword + "&pn=" + pns[i]);
         $("#p-nav-" + i).append(pns[i]);
         if (pageId == pns[i]) {
             $("#p-nav-" + i).addClass("active")
         }
     }
-    $("#a-nav-next").empty().attr("href", "/user/block/" + blockId + "?pn=" + pageInfo.nextPage);
+    $("#a-nav-next").empty().attr("href", "/user/search/block/" + blockId + "?search=" + keyword + "&pn=" + pageInfo.nextPage);
 }
 
 
@@ -168,54 +118,9 @@ function eventHandler() {
     $("#l-logout").click(function () {
         logout();
     });
-    //收藏
-    $("#bid").click(function () {
-        var name = $.cookie('name');
-        var sessionId = $.cookie(name);
-        var collect = $("#bid").attr("collect");
-        if (name == null || sessionId == null) {
-            alert("尚未登录");
-            window.location.href = "/user/index";
-            return;
-        }
-        collection(name, sessionId, collect);
-    });
     //搜索
     $("#img-search").click(function () {
         window.location.href = "/user/search/block/" + blockId + "?search=" + $("#keyword").val() + "&pn=1";
-    });
-}
-
-function collection(name, sessionId, collect) {
-    $.ajax({
-        url: URL + "/api/collect",
-        type: "post",
-        xhrFields: {
-            withCredentials: true
-        },
-        data: {
-            name: name,
-            sessionId: sessionId,
-            blockId: blockId,
-            collect: collect == "0" ? "1" : "0"
-        },
-        success: function (result) {
-            var status = result.code;
-            var collect = result.data.collect;
-            switch (status) {
-                case 200:
-                    console.log(collect);
-                    if (collect == "0") {
-                        $("#bid").attr("collect", collect);
-                        $("#bid").removeClass("stared").addClass("star");
-                    } else {
-                        $("#bid").attr("collect", collect);
-                        $("#bid").removeClass("star").addClass("stared");
-                    }
-                    initCollectNum();
-                    break;
-            }
-        }
     });
 }
 
@@ -441,3 +346,4 @@ function wallterFall() {
     };
 
 })(jQuery, window, document);
+

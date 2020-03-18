@@ -68,17 +68,17 @@
 }
 
 .s-row {
-    width: 500px;
+    width: 1000px;
     height: 30px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
 .s-row > p {
-    height:30px;
-    width:100px;
+    height: 30px;
+    width: 100px;
     float: left;
-    font-weight:200;
-    padding:7px;
+    font-weight: 200;
+    padding: 7px;
 }
 
 .s-row > input {
@@ -87,8 +87,86 @@
     border-radius: 3px;
     color: #000000;
     background-color: #d4c3c654;
-    height:30px;
-    width:300px;
+    height: 30px;
+    width: 300px;
 }
+
+.u-container {
+    margin-top: 30px;
+    color: #292323;
+    margin-bottom: 20px;
+}
+
+.u-row {
+    width: 1000px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+
+.u-row > p {
+    height: 30px;
+    width: 100px;
+    float: left;
+    font-weight: 200;
+    padding: 7px;
+}
+
+.u-row > input {
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    color: #000000;
+    background-color: #d4c3c654;
+    height: 30px;
+    width: 300px;
+}
+
+.u-row-radio {
+    margin-left: 100px;
+    height: 30px;
+    width: 300px;
+    background-color: #d4c3c654;
+    border-radius: 3px;
+}
+
+.u-row-radio > div {
+    float: left;
+    margin-top: 8px;
+    margin-left: 50px;
+}
+
+.u-row-radio > div > p {
+    float: left;
+
+}
+
+.u-row-radio > div > input {
+    margin-left: 5px;
+    margin-top: -2px;
+    width: 18px;
+    height: 18px;
+}
+
+.btn-upload {
+    position: relative;
+    display: inline-block;
+    height: 31px;
+    *display: inline;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer
+}
+
+.input-file {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 30em;
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
 
 
