@@ -65,6 +65,7 @@ function paperSetting() {
             {"data": "title"},
             {"data": "authorName"},
             {"data": "createTime"},
+            {"data":  "seeNum"},
             {
                 "data": "priority",
                 render: function (data, type, row, meta) {

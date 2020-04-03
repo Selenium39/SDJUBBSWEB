@@ -31,7 +31,8 @@ function initArticle() {
                 var article = result.data.article;
                 var comments = result.data.comments;
                 $("#a-title").empty().append(article.title);
-                $("#a-time").empty().append(article.createTime);
+                $("#a-time").append(article.createTime);
+                $("#a-see").append(article.seeNum);
                 $("#a-content").prepend(article.content);
                 if (comments.length != 0) {
                     $("#comment-0").remove();

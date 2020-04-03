@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="/common/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/user/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/user/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/common/font-awesome/css/font-awesome.min.css">
     <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/user/css/article.css">
     <link rel="stylesheet" href="/user/css/index.css">
@@ -56,8 +56,9 @@
                 <h1 class="article-title" id="a-title"><a href="#"></a></h1>
                 <div class="article-meta">
                     <span class="item article-meta-time">
-	             <time class="time"><i class="glyphicon glyphicon-time" id="a-time"></i></time>
+	             <time class="time" id="a-time"><i class="fa fa-clock-o"></i>&nbsp;</time>
                 </span>
+                    <span class="item article-meta-views" id="a-see"><i class="fa fa-eye"></i>&nbsp;</span>
                 </div>
             </header>
             <article class="article-content" id="a-content">
@@ -133,7 +134,10 @@
             <div class="footer-link__item">
                 <h4 class="footer-title">联系我</h4>
                 <ul class="footer-list">
-                    <li class="item"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=895484122&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:895484122:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></li>
+                    <li class="item"><a target="_blank"
+                                        href="http://wpa.qq.com/msgrd?v=3&uin=895484122&site=qq&menu=yes"><img
+                            border="0" src="http://wpa.qq.com/pa?p=2:895484122:52" alt="点击这里给我发消息"
+                            title="点击这里给我发消息"/></a></li>
                 </ul>
             </div>
         </div>
@@ -159,6 +163,7 @@
             "bdSize": "32"
         }, "share": {}
     };
-    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=0.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=0.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
 </body>
 </html>
