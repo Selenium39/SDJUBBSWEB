@@ -1,0 +1,98 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/h-ui/h-ui.admin/css/H-ui.admin.css"/>
+    <title>首页</title>
+</head>
+<body>
+<div class="page-container">
+    <p class="f-20 text-success">欢迎来到SDJUBBS <span class="f-14">v0.1</span>后台管理系统</p>
+    <table class="table table-border table-bordered table-bg mt-20">
+        <thead>
+        <tr>
+            <th colspan="2" scope="col">服务器信息</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>用户名</th>
+            <td id="username"></td>
+        </tr>
+		<tr>
+			<td>计算机名</td>
+			<td id="computerName"></td>
+		</tr>
+		<tr>
+			<td>域名</td>
+			<td id="userDomain"></td>
+		</tr>
+		<tr>
+			<td>ip</td>
+			<td id="ip"></td>
+		</tr>
+		<tr>
+			<td>主机名</td>
+			<td id="hostName"></td>
+		</tr>
+		<tr>
+			<td>jvm总内存</td>
+			<td id="totalMemory"></td>
+		</tr>
+		<tr>
+			<td>jvm剩余内存</td>
+			<td id="freeMemory"></td>
+		</tr>
+		<tr>
+			<td>可用处理器个数</td>
+			<td id="availableProcessors"></td>
+		</tr>
+		<tr>
+			<td>jdk版本</td>
+			<td id="jdkVersion"></td>
+		</tr>
+		<tr>
+			<td>jdk安装路径</td>
+			<td id="jdkHome"></td>
+		</tr>
+		<tr>
+			<td>操作系统名称</td>
+			<td id="osName"></td>
+		</tr>
+		<tr>
+			<td>操作系统架构</td>
+			<td id="osArch"></td>
+		</tr>
+		<tr>
+			<td>操作系统版本</td>
+			<td id="osVersion"></td>
+		</tr>
+		<tr>
+			<td>账户名称</td>
+			<td id="accountName"></td>
+		</tr>
+		<tr>
+			<td>工作目录</td>
+			<td id="workDir"></td>
+		</tr>
+        </tbody>
+    </table>
+</div>
+<footer class="footer mt-20">
+    <div class="container">
+        <p>©德泰1613万涛 版权所有。</p>
+    </div>
+</footer>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="/common/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/common/js/layer.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/admin/h-ui/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/admin/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="/admin/js/welcome.js"></script>
+</body>
+</html>

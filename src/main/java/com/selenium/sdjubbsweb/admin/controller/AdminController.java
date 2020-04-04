@@ -27,6 +27,11 @@ public class AdminController {
         return AdminPage.ADMIN_PAGE_INDEX;
     }
 
+    @GetMapping(AdminApi.ADMIN_REQUEST_HOME)
+    public String home(){
+       return AdminPage.ADMIN_PAGE_HOME;
+    }
+
     /**
      * method: get
      * url: /login

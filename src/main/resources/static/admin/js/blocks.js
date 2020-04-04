@@ -2,25 +2,50 @@ var URL = 'http://localhost:8080';
 var name = $.cookie('name');
 var sessionId = $.cookie(name);
 $(function () {
-    paperSetting()
+    paperSetting();
     paperEvent();
+    search();
 });
 
+function search() {
+    var searchInput = $("#DataTables_Table_0_filter input");
+    searchInput.bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            console.log(searchInput.val())
+            let searchContent = searchInput.val()
+            if (searchContent == '' || searchContent == null || searchContent == undefined) {
+                return;
+            } else {
+                $(".table-sort").dataTable().fnDestroy();
+                //查询
+                show(searchContent);
+            }
+        }
+    });
+}
+
 function paperSetting() {
+//清空搜索框内容
+    $("#DataTables_Table_0_filter input").empty();
+    //显示所有
+    show(null);
+}
+
+function show(searchContent) {
     $('.table-sort').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
         "bStateSave": true,//状态保存
-        "searching":false,//搜索框
+        "searching": true,//搜索框
         "bProcessing": true,
         stripeClasses: ["odd", "even"],//为奇偶行加上样式，兼容不支持CSS伪类的场合
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0,5,9]}// 制定列不参与排序
+            {"orderable": false, "aTargets": [0, 5, 9]}// 制定列不参与排序
         ],
         serverSide: true,//启用服务器端分页
         ajax: function (data, callback, settings) {
             $.ajax({
-                url: URL + '/api/admin/block',
+                url: searchContent == null ? URL + '/api/admin/block' : URL + '/api/admin/block?search=' + searchContent,
                 type: 'GET',
                 data: {
                     name: '' + name,
@@ -54,8 +79,8 @@ function paperSetting() {
         columns: [
             {
                 render: function (data, type, row, meta) {
-                    if(row.id!=null){//排除全选的checkBox
-                    var content = "<input type='checkbox' value="+row.id+">";
+                    if (row.id != null) {//排除全选的checkBox
+                        var content = "<input type='checkbox' value=" + row.id + ">";
                     }
                     return content;
                 }
