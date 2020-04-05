@@ -28,8 +28,8 @@ public class AdminController {
     }
 
     @GetMapping(AdminApi.ADMIN_REQUEST_HOME)
-    public String home(){
-       return AdminPage.ADMIN_PAGE_HOME;
+    public String home() {
+        return AdminPage.ADMIN_PAGE_HOME;
     }
 
     /**
@@ -91,4 +91,30 @@ public class AdminController {
     public String showQr() {
         return AdminPage.ADMIN_PAGE_FEATURE_QR;
     }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_COUNT)
+    public String showCountStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_COUNT;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_REGISTER)
+    public String showRegisterStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_REGISTER;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_LOGIN)
+    public String showLoginStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_LOGIN;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_MEMORY)
+    public String showMemoryStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_MEMORY;
+    }
+
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_CPU)
+    public String showCPUStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_CPU;
+    }
+
 }
