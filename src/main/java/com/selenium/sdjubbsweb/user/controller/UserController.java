@@ -132,4 +132,9 @@ public class UserController {
         return UserPage.USER_PAGE_QR;
     }
 
+    @GetMapping(UserApi.USER_FEATURE_CHAT)
+    public String showChatRoom(){
+        return UserPage.USER_PAGE_CHAT;
+    }
+
 }

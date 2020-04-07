@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/user/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/user/css/chat.css">
+</head>
+
+<body>
+<div class="chat">
+    <div class="panel panel-default">
+        <div class="panel-heading" id="count"></div>
+        <div id="div_msg" class="panel-body" style="width: 500px; height: 630px;">
+            <div id="message-list" style="margin-bottom:10px;position:relative;left:0px;">
+<!--                <div style="color:green">你 16:37:33</div>等待服务器Websocket握手包...-->
+            </div>
+        </div>
+        <div class="panel-heading">
+            <textarea id="message" class="form-control" style="height:100px;resize:none;" placeholder="发送的内容"></textarea>
+            <button id="btn_send" type="button" style="width: 100%; margin-top: 5px;" class="btn btn-info">发送</button>
+        </div>
+    </div>
+</div>
+<script src="/common/js/jquery-3.1.1.js"></script>
+<script src="/common/js/bootstrap.min.js"></script>
+<script src="/common/js/uuidv4.min.js"></script>
+<script src="/user/js/chat.js"></script>
+</body>
+</html>
