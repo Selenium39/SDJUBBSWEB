@@ -15,6 +15,7 @@ public class AdminPage {
     public static final String ADMIN_PAGE_STATISTICS_REGISTER = "/admin/statistics_register";
     public static final String ADMIN_PAGE_STATISTICS_LOGIN= "/admin/statistics_login";
     public static final String ADMIN_PAGE_STATISTICS_COUNT= "/admin/statistics_count";
+    public static final String ADMIN_PAGE_STATISTICS_ARTICLE= "/admin/statistics_article";
     public static final String ADMIN_PAGE_STATISTICS_MEMORY= "/admin/statistics_memory";
     public static final String ADMIN_PAGE_STATISTICS_CPU= "/admin/statistics_cpu";
 }

@@ -97,6 +97,11 @@ public class AdminController {
         return AdminPage.ADMIN_PAGE_STATISTICS_COUNT;
     }
 
+    @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_ARTICLE)
+    public String showArticleStatistics() {
+        return AdminPage.ADMIN_PAGE_STATISTICS_ARTICLE;
+    }
+
     @GetMapping(AdminApi.ADMIN_REQUEST_STATISTICS_REGISTER)
     public String showRegisterStatistics() {
         return AdminPage.ADMIN_PAGE_STATISTICS_REGISTER;
